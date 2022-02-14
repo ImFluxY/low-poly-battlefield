@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ae49bdbf690db46b5ac20e81b6ef61, type: 3}
+  m_Name: Assault Rifle Test
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  weaponObject: {fileID: 5830596659708226832, guid: cff8c6a8b05fdce4ba3076a1fc1c7262, type: 3}
+  weaponPivotPos: {x: 0, y: -0.006, z: 0.339}
+  defaultSight: {fileID: 11400000, guid: 3a58a5c6b17ad174982541eac1399045, type: 2}
+  magazinType: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
+  caseEjectedDrestroyTime: 5
+  fireRate: 0.13
+  aimingDuration: 0.08
+  muzzleFlashSpawnChance: 0.4
+  muzzleSmoke: {fileID: 912111974070619976, guid: 636faec1ac2474e439b04551fa17f9f6, type: 3}
+  caseEjected: {fileID: 9013658637490596916, guid: e307bbaf9c65fcd45ad26504c7357821, type: 3}
+  caseMaxEjectingForce: 3
+  caseMinEjectingForce: 5
+  canSingle: 1
+  canFullAuto: 1
+  canBurst: 0
+  bulletsPerBurst: 0
+  positionDampTime: 5
+  rotationDampTime: 30
+  recoilRotation: {x: -0.8, y: 0.6, z: 0.2}
+  recoilKickBack: {x: 0.1, y: 0.4, z: -0.5}
+  aimRecoilReducer: 2
+  recoilRotComeBackTime: 5
+  recoilPosComeBackTime: 35
+  idleAnimation: {fileID: 11400000, guid: 56a005ca1a4bb7c469865e951fa4e2c3, type: 2}
+  walkAnimation: {fileID: 11400000, guid: 9af17449a8bd1d04984cf7b49f959df8, type: 2}
+  runAnimation: {fileID: 11400000, guid: 23776fecb28ae5b44b7333bd82e22d1b, type: 2}
+  swayAmount: 0
+  maxSwayAmount: 0
+  swayRotationAmount: 0.5
+  maxSwayRoationAmount: 5
+  swaySmoothAmount: 20
+  swayRotationX: 1
+  swayRotationY: 1
+  swayRotationZ: 1

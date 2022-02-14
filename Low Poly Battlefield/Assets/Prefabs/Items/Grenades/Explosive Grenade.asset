@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31c816e9b1b9254db204f084bb563a4, type: 3}
+  m_Name: Explosive Grenade
+  m_EditorClassIdentifier: 
+  grenadeType: 0
+  grenadePrefab: {fileID: 9139727511571112964, guid: 290c9e388f7ff8849a01cf2e745c8eec, type: 3}
+  throwForce: 150
+  runtimeGrenade: {fileID: 0}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27f1a1ed97dc264ca327a7b2bd138db, type: 3}
+  m_Name: AssaultRifleExtendedMag
+  m_EditorClassIdentifier: Assembly-CSharp::weaponMag
+  magPrefab: {fileID: 3791337192406597369, guid: f85adb8bd7d99f44ea2faf9c6979f85d, type: 3}
+  bulletPrefab: {fileID: 3314598229871447698, guid: 5df3ce1b7ccc31d4f902af691855957a, type: 3}
+  bulletSpeed: 910
+  bulletLifeTime: 10
+  maxAmmoCount: 40

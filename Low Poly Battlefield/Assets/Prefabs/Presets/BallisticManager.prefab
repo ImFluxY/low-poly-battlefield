@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8846729118857797659
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8846729118857797656}
+  - component: {fileID: 8846729118857797657}
+  m_Layer: 0
+  m_Name: BallisticManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8846729118857797656
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846729118857797659}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8846729118857797657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846729118857797659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed664b3a673bbce4d8182fe368d40fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surfaceTypes:
+  - tagName: Wood
+    hitPrefabs:
+    - {fileID: 1760666373357238, guid: 89e89ab1ecb776647a41e02207a36b23, type: 3}
+    - {fileID: 1367019240155890, guid: 6982ab65774f6724aae616d23ed348ff, type: 3}
+    - {fileID: 1060988468579568, guid: 41eb13fe65bf30b4a90860d18427c77d, type: 3}
+  - tagName: Metal
+    hitPrefabs:
+    - {fileID: 1848749998299440, guid: 27815f7bf34f3af4c8dac9c180ba8d1c, type: 3}
+    - {fileID: 1671827752541952, guid: 9a720d019933e5c499f1411de50d4a02, type: 3}
+    - {fileID: 1691086551863898, guid: 2c90a08e2e191394bb38c5d170f9942a, type: 3}
+  - tagName: Glass
+    hitPrefabs:
+    - {fileID: 1981418324267132, guid: 610b7c8214bad6b4c97039b58367f4a0, type: 3}
+    - {fileID: 1522460089889808, guid: 08ba0730f45a30e4c815a6c27d9bbe4b, type: 3}
+    - {fileID: 1405575941077912, guid: 62547f200944a9a4fb898fac612013c2, type: 3}
+  - tagName: Concrete
+    hitPrefabs:
+    - {fileID: 1359433402067330, guid: 5b6be2c2e1e76704e90234c2c72d52de, type: 3}
+    - {fileID: 1006115703062704, guid: 39281fdb006a7da4cb0ee1ef81684afd, type: 3}

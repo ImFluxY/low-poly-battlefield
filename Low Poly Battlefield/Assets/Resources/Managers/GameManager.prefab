@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5901090835388615179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5901090835388615176}
+  - component: {fileID: 5901090835388615177}
+  - component: {fileID: 5901090833703869669}
+  - component: {fileID: 5901090833703869668}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5901090835388615176
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901090835388615179}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5901090835388615177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901090835388615179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d046bc6c3a45246b5180aa46d42b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_forwardAxis: Vertical
+  m_sidewayAxis: Horizontal
+  fireKey: 323
+  m_verticalLookAxis: Mouse Y
+  m_horizontalLookAxis: Mouse X
+  m_xAxisSensitivity: 80
+  m_yAxisSensitivity: 80
+  sensitivityDivider: 1
+  sightDividers:
+  - sightRatio: 0
+    sightDivision: 1
+  - sightRatio: 1
+    sightDivision: 2
+  - sightRatio: 2
+    sightDivision: 4
+  - sightRatio: 3
+    sightDivision: 6
+  - sightRatio: 4
+    sightDivision: 10
+  - sightRatio: 5
+    sightDivision: 16
+  - sightRatio: 6
+    sightDivision: 32
+  m_pauseKey: 27
+--- !u!114 &5901090833703869669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901090835388615179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed664b3a673bbce4d8182fe368d40fb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  surfaceTypes:
+  - tagName: Wood
+    hitPrefabs:
+    - {fileID: 1260334799937022, guid: 2b28f2fdc5a65964f96ea4d2b9d6ca63, type: 3}
+    decalsPrefabs:
+    - {fileID: 4517001259318582194, guid: f3320a9e18147614190fbc65b22fbf74, type: 3}
+    - {fileID: 1907319564657102812, guid: e50e92684a0046641923de3e6226394d, type: 3}
+    - {fileID: 3328854106832232439, guid: 50dc86b2ad910b9428b5a041b325a3e5, type: 3}
+  - tagName: Metal
+    hitPrefabs:
+    - {fileID: 1067536016464596, guid: 57e18706e2792ff4bb5561ed74b796e2, type: 3}
+    decalsPrefabs:
+    - {fileID: 4627283471661834989, guid: 990673466408b4947b162d215b1e3bdb, type: 3}
+    - {fileID: 4247079212390644087, guid: f443e166b8355f4419ae24edc1fde979, type: 3}
+    - {fileID: 6140960156925477864, guid: 5e21cd4b6f3e74b49860fe474f8b172e, type: 3}
+  - tagName: Concrete
+    hitPrefabs:
+    - {fileID: 1450638143650814, guid: 9fe1ddc0da27cb44ebeeb8c2befa68bd, type: 3}
+    decalsPrefabs:
+    - {fileID: 6883932250857493639, guid: 142a1a42d301ae34090ddec9febda57b, type: 3}
+    - {fileID: 596039899511539510, guid: 59ba81ada9773fd4c8cc49da9c994f27, type: 3}
+  - tagName: Skin
+    hitPrefabs:
+    - {fileID: 1489431029902184, guid: 4430919f14c50f84085d287cbcb2c30e, type: 3}
+    - {fileID: 1026642433091512, guid: ed67c2cb8e3a7fb418c6fbb1b001dce2, type: 3}
+    decalsPrefabs: []
+--- !u!114 &5901090833703869668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901090835388615179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62923246d96abd40952fd9068b48510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableCursor: 0

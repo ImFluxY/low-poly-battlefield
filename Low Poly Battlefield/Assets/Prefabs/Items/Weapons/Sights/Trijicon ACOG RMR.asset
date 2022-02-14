@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464b964ca1dab22498476fea70a741d8, type: 3}
+  m_Name: Trijicon ACOG RMR
+  m_EditorClassIdentifier: 
+  sightPrefab: {fileID: 7881274133307278715, guid: f72489ebfb5d2684b924a486b9a33bf1, type: 3}
+  switchSpeed: 0.05
+  primarySightRatio: 2
+  aimingOffsetPos: {x: 0, y: -0.1914, z: 0.124}
+  aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
+  twoSights: 1
+  secondeAimingOffsetPos: {x: 0, y: -0.249, z: 0.2}
+  secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
+  cantedAimingOffsetPos: {x: 0, y: 0, z: 0}
+  cantedAimingOffsetRot: {x: 0, y: 0, z: 0}
