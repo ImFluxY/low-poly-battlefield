@@ -6,6 +6,7 @@ using UnityEngine;
 public class Sight : ScriptableObject
 {
     public GameObject sightPrefab;
+    public GameObject fakeSightPrefab;
     public float switchSpeed = .2f;
     [Header("Primary Sight")]
     public SightRatio primarySightRatio;

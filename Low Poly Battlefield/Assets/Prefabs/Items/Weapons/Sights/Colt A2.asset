@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Colt A2
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 796327992481426456, guid: b80f5a70b7eaf9a469d508039f043260, type: 3}
+  fakeSightPrefab: {fileID: 796327992481426456, guid: 1131bb80fbc07564a8b2eb5634d2f687, type: 3}
   switchSpeed: 0.2
+  primarySightRatio: 0
   aimingOffsetPos: {x: 0, y: -0.181, z: 0.16}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
   twoSights: 0
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
   cantedAimingOffsetPos: {x: 0, y: 0, z: 0}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 0}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Compact Prism
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 7575684600240106034, guid: 22e41eb1333bc3f468ea87740b16c4a7, type: 3}
+  fakeSightPrefab: {fileID: 7575684600240106034, guid: 39d391d499435ab4ba2cc5d194952a87, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 1
   aimingOffsetPos: {x: 0, y: -0.1906, z: 0.066}

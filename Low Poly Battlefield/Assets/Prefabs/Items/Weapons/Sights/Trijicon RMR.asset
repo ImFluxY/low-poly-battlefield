@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Trijicon RMR
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 3194644543559713399, guid: 50af523460fe5974182bf43d93bebf7f, type: 3}
+  fakeSightPrefab: {fileID: 3194644543559713399, guid: f7afc5fbc00d4c845b22a888d938383b, type: 3}
   switchSpeed: 0.2
+  primarySightRatio: 0
   aimingOffsetPos: {x: 0, y: -0.177, z: 0.08}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
   twoSights: 0
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
   cantedAimingOffsetPos: {x: 0.066, y: -0.152, z: 0.18}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 45}

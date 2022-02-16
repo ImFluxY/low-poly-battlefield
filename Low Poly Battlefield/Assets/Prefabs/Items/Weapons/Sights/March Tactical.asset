@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: March Tactical
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 2218060531055518812, guid: 0718bfb5de78913429fcb609dc8702c5, type: 3}
+  fakeSightPrefab: {fileID: 2218060531055518812, guid: cc0f2da38d013cb48b2fe59cfe43940c, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 4
   aimingOffsetPos: {x: 0, y: -0.204, z: 0.164}

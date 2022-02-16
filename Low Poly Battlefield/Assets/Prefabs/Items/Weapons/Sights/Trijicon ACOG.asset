@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Trijicon ACOG
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 104366177255217208, guid: 7238f3baa6677dc4a8eee05fe8e2fc6d, type: 3}
+  fakeSightPrefab: {fileID: 104366177255217208, guid: 8aab28e4578c9e543b4ac5e991637f81, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 2
   aimingOffsetPos: {x: 0, y: -0.1914, z: 0.124}

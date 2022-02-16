@@ -15,6 +15,11 @@ public class Ragdoll : MonoBehaviour
     {
         PV = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
+        foreach (Rigidbody rb in rigidbodies)
+        {
+            rb.isKinematic = true;
+        }
+        animator.enabled = true;
     }
 
     public void ActivateRagdoll()

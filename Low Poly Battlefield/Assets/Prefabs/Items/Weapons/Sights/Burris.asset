@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Burris
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 7031217153676527299, guid: f28b20cd46b013341be9777186d5a20a, type: 3}
+  fakeSightPrefab: {fileID: 7031217153676527299, guid: 732bcc24426d9e24b83c295960ffbd69, type: 3}
   switchSpeed: 0.2
+  primarySightRatio: 0
   aimingOffsetPos: {x: 0, y: -0.18, z: 0.16}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
   twoSights: 0
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
   cantedAimingOffsetPos: {x: 0.066, y: -0.152, z: 0.25}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 45}

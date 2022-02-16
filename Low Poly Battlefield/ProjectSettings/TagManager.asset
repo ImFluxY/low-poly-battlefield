@@ -8,8 +8,9 @@ TagManager:
   - Concrete
   - Metal
   - Skin
-  - TerroristSpawn
-  - CounterTerroristSpawn
+  - Team Manager
+  - Terrorist Spawn
+  - Army Spawn
   layers:
   - Default
   - TransparentFX

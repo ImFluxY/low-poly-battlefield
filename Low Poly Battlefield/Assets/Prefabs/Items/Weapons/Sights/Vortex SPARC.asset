@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Vortex SPARC
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 8553916397856888056, guid: c96e82f8de3dd664083a3298ec599e35, type: 3}
+  fakeSightPrefab: {fileID: 8553916397856888056, guid: 5e15306ac25b4c5498757eb4ea2c73cb, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 1
   aimingOffsetPos: {x: 0, y: -0.206, z: 0.045}

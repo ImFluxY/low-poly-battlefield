@@ -102,7 +102,6 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
     [HideInInspector]
     public WeaponReferences weaponRef;
     private Animator playerAnimator;
-    private AudioController audioController;
     private InputManager inputManager;
     private BallisticManager ballisticManager;
     private Equipement equipement;
@@ -112,7 +111,6 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         playerAnimator = GetComponent<Animator>();
-        audioController = FindObjectOfType<AudioController>();
         inputManager = FindObjectOfType<InputManager>();
         ballisticManager = FindObjectOfType<BallisticManager>();
         equipement = GetComponent<Equipement>();
@@ -153,8 +151,10 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         if (!sight)
             sight = weapon.defaultSight;
 
-        if(sight.sightPrefab)
+        if(PV.IsMine && sight.sightPrefab)
             weaponGraphics.Add(Instantiate(sight.sightPrefab, weaponRef.sightPos));
+        else if(!PV.IsMine && sight.fakeSightPrefab)
+            weaponGraphics.Add(Instantiate(sight.fakeSightPrefab, weaponRef.sightPos));
 
         aimingOffsetPos.Clear();
         aimingOffsetRot.Clear();

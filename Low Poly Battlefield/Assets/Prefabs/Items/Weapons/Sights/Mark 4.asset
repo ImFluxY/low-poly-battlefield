@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mark 4
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 6141448769693191976, guid: 37c8cc23ea224e74a8c5127faa577e19, type: 3}
+  fakeSightPrefab: {fileID: 6141448769693191976, guid: f82a76b65541a7d4cb52b765adb01280, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 4
   aimingOffsetPos: {x: 0, y: -0.1898, z: 0.175}

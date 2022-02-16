@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: VOMZ Pilad
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 7262420908318957944, guid: 8b97de5fc208412489cd9c5bb2de9881, type: 3}
+  fakeSightPrefab: {fileID: 7262420908318957944, guid: 5ae7c066f93d32642b46e29602b27df5, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 6
   aimingOffsetPos: {x: 0, y: -0.201, z: 0.172}

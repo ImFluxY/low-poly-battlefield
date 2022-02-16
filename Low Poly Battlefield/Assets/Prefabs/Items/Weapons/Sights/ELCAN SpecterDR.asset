@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ELCAN SpecterDR
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 6561587529873202566, guid: 7672a6cb22af5b04cb1d430934e39292, type: 3}
+  fakeSightPrefab: {fileID: 6561587529873202566, guid: a8b14b557ce8ac44dad6eb99e8367998, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 2
   aimingOffsetPos: {x: 0, y: -0.1845, z: 0.085}

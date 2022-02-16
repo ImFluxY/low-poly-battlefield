@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: ATN OTS
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 3472745756318154086, guid: 1bafd5fc56744d9468b0b8a3776e7f07, type: 3}
+  fakeSightPrefab: {fileID: 7686374899012995734, guid: f1859e315329af34c800036a03fda496, type: 3}
   switchSpeed: 0.2
+  primarySightRatio: 0
   aimingOffsetPos: {x: 0, y: -0.1957, z: 0.185}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
   twoSights: 0
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
   cantedAimingOffsetPos: {x: 0, y: 0, z: 0}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 0}

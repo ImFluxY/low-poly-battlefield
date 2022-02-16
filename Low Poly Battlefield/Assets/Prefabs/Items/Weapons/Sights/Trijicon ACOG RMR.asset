@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Trijicon ACOG RMR
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 7881274133307278715, guid: f72489ebfb5d2684b924a486b9a33bf1, type: 3}
+  fakeSightPrefab: {fileID: 7881274133307278715, guid: a99118f93c3ac624f83ad051d49f2fe1, type: 3}
   switchSpeed: 0.05
   primarySightRatio: 2
   aimingOffsetPos: {x: 0, y: -0.1914, z: 0.124}

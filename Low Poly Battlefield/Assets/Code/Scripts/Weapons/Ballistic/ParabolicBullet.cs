@@ -7,7 +7,7 @@ using System.IO;
 public class ParabolicBullet : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask layerMask;
+    private LayerMask bulletIgnoreThis;
 
     private float speed;
     private float gravity;
@@ -34,7 +34,7 @@ public class ParabolicBullet : MonoBehaviour
 
     private void OnHit(RaycastHit hit, Vector3 direction)
     {
-        Debug.Log("Hit : " + hit.transform.name + ", direction : " + direction);
+        Debug.Log(hit.transform.name);
 
         if (hit.transform.TryGetComponent(out CharacterPart part))
         {
@@ -59,7 +59,7 @@ public class ParabolicBullet : MonoBehaviour
             {
                 PhotonNetwork.Instantiate(Path.Combine("Weapons", "Ballistic", ballisticManager.surfaceTypes[i].hitPrefabs[0].name), hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
 
-                if(ballisticManager.surfaceTypes[i].decalsPrefabs[0] != null)
+                if(ballisticManager.surfaceTypes[i].decalsPrefabs.Length > 0)
                 {
                     GameObject go = PhotonNetwork.Instantiate(Path.Combine("Weapons", "Ballistic", "Decals", ballisticManager.surfaceTypes[i].decalsPrefabs[0].name), hit.point, Quaternion.LookRotation(hit.normal, Vector3.up));
                     go.transform.SetParent(hit.transform);
@@ -117,6 +117,6 @@ public class ParabolicBullet : MonoBehaviour
 
     private bool CastRayBetweenPoints(Vector3 startPoint, Vector3 endPoint, out RaycastHit hit)
     {
-        return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, layerMask);
+        return Physics.Raycast(startPoint, endPoint - startPoint, out hit, (endPoint - startPoint).magnitude, ~bulletIgnoreThis);
     }
 }

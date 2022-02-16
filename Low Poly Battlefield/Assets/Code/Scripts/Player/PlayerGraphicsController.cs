@@ -21,26 +21,12 @@ public class PlayerGraphicsController : MonoBehaviour
     {
         foreach (GameObject graphic in defaultTerroristGraphics)
         {
-            if (team == 0)
-            {
-                graphic.SetActive(false);
-            }
-            else
-            {
-                graphic.SetActive(true);
-            }
+            graphic.SetActive(team == 2);
         }
 
         foreach (GameObject graphic in defaultCounterGraphics)
         {
-            if (team == 0)
-            {
-                graphic.SetActive(true);
-            }
-            else
-            {
-                graphic.SetActive(false);
-            }
+            graphic.SetActive(team == 1);
         }
 
     }

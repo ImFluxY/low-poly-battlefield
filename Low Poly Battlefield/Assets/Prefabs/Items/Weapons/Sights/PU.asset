@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PU
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 7303597153434991808, guid: 8ddcb41075d0dd04685d5bab3cf6d686, type: 3}
+  fakeSightPrefab: {fileID: 7303597153434991808, guid: fc6af21aa4380164a91e755284ce5c00, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 4
   aimingOffsetPos: {x: 0, y: -0.19, z: 0.125}

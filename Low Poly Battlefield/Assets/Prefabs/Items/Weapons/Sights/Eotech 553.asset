@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Eotech 553
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 6644043435828655495, guid: ab4956145fd30fb40bdc2dc4c8f11d9f, type: 3}
+  fakeSightPrefab: {fileID: 6644043435828655495, guid: e7f92fd4b78ffa9459b086c6d0cfa68c, type: 3}
   switchSpeed: 0.2
+  primarySightRatio: 0
   aimingOffsetPos: {x: 0, y: -0.187, z: 0.12}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
   twoSights: 0
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
   cantedAimingOffsetPos: {x: 0.066, y: -0.164, z: 0.2}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 45}

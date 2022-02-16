@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3314598229871447697}
   - component: {fileID: 1254452433846266798}
   - component: {fileID: -1891892897047561314}
-  - component: {fileID: 7948542476885214972}
   m_Layer: 24
   m_Name: AssaultRifleBullet
   m_TagString: Untagged
@@ -46,9 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433b750d55558fe449cb9d59797d75c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  bulletIgnoreThis:
     serializedVersion: 2
-    m_Bits: 4261676915
+    m_Bits: 4
 --- !u!114 &-1891892897047561314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,26 +67,10 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 7948542476885214972}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7948542476885214972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3314598229871447698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &3314598230515165101
 GameObject:
   m_ObjectHideFlags: 0

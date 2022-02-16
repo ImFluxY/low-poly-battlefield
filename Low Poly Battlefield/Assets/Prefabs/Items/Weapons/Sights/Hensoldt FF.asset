@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Hensoldt FF
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 8553206942641348614, guid: 607f70e6e490643409ee79f5999507db, type: 3}
+  fakeSightPrefab: {fileID: 8553206942641348614, guid: 4bdf07beb0829cb46816401334c6fca3, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 4
   aimingOffsetPos: {x: 0, y: -0.1783, z: 0.128}

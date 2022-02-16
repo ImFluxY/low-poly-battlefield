@@ -13,5 +13,15 @@ MonoBehaviour:
   m_Name: Scope_12
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 2350583321127471410, guid: 0c1b23f6869e2f44c8497439130ee0c4, type: 3}
-  aimingOffset: {x: 0, y: -0.2028, z: 0.1146}
-  weaponPivotPos: {x: 0.011, y: 0.1538, z: 0.173}
+  fakeSightPrefab: {fileID: 2350583321127471410, guid: 13d770ceee639e24ba6720a56dfd7730, type: 3}
+  switchSpeed: 0.2
+  primarySightRatio: 0
+  aimingOffsetPos: {x: 0, y: 0, z: 0}
+  aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
+  twoSights: 0
+  secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
+  secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
+  cantedAimingOffsetPos: {x: 0, y: 0, z: 0}
+  cantedAimingOffsetRot: {x: 0, y: 0, z: 0}

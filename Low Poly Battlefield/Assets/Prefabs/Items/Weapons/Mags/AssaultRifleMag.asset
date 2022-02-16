@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::weaponMag
   magPrefab: {fileID: 6660387527404478439, guid: 4f6cb245d3755704fbe22b54bb7bb9ca, type: 3}
   bulletPrefab: {fileID: 3314598229871447698, guid: 5df3ce1b7ccc31d4f902af691855957a, type: 3}
-  bulletDamage: 65
+  bulletDamage: 45
   bulletSpeed: 910
   bulletLifeTime: 10
   maxAmmoCount: 30

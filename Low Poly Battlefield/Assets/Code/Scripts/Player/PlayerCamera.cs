@@ -157,7 +157,7 @@ public class PlayerCamera : MonoBehaviourPunCallbacks, IPunObservable
     public void deleteCamera()
     {
         if (PV.IsMine)
-            Destroy(cam);
+            Destroy(cam.gameObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

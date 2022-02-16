@@ -21,7 +21,7 @@ MonoBehaviour:
   fireRate: 0.13
   aimingDuration: 0.08
   muzzleFlashSpawnChance: 0.4
-  muzzleSmoke: {fileID: 912111974070619976, guid: 636faec1ac2474e439b04551fa17f9f6, type: 3}
+  muzzleSmoke: {fileID: 0}
   caseEjected: {fileID: 9013658637490596916, guid: e307bbaf9c65fcd45ad26504c7357821, type: 3}
   caseMaxEjectingForce: 3
   caseMinEjectingForce: 5

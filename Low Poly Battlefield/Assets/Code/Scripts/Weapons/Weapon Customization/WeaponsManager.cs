@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponsManager : MonoBehaviour
 {
+    /*
     public CustomWeapon[] weapons;
     public int currentWeapon;
 
@@ -37,8 +38,9 @@ public class WeaponsManager : MonoBehaviour
     {
 
     }
+    */
 }
-
+/*
 [System.Serializable]
 public class CustomWeapon
 {
@@ -52,3 +54,4 @@ public class CustomWeapon
     }
     public membership memberShip;
 }
+*/
