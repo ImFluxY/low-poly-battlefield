@@ -66,3 +66,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed14042da9b89164d905dc7ebe3604d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPlayerInd: 0
+  myPlayerInfos:
+    profile:
+      username: 
+      level: 0
+      xp: 0
+    actor: 0
+    kills: 0
+    deaths: 0
+    team: 0

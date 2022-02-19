@@ -6109,6 +6109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea09940ce330f142b325f6c40530a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerProfile:
+    username: 
+    level: 0
+    xp: 0
   maxHealth: 100
   currentHealth: 0
   dismembredTransform: {fileID: 6342568060598971520}

@@ -47,6 +47,8 @@ MonoBehaviour:
   - RPC_DestroyPlayer
   - RPC_OnHit
   - RPC_JoinTeam
+  - SyncProfile
+  - SyncTeam
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

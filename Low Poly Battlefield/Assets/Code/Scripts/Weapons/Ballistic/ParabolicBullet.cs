@@ -20,8 +20,9 @@ public class ParabolicBullet : MonoBehaviour
 
     private BallisticManager ballisticManager;
     private PhotonView PV;
+    private int actor;
 
-    public void Initialize(BallisticManager ballisticManager, float bulletDamage, Transform startPoint, float speed, float gravity)
+    public void Initialize(BallisticManager ballisticManager, float bulletDamage, Transform startPoint, float speed, float gravity, int actor)
     {
         startPos = startPoint.position;
         startForward = startPoint.forward;
@@ -29,6 +30,7 @@ public class ParabolicBullet : MonoBehaviour
         this.bulletDamage = bulletDamage;
         this.speed = speed;
         this.gravity = gravity;
+        this.actor = actor;
         isInitialized = true;
     }
 
@@ -38,7 +40,7 @@ public class ParabolicBullet : MonoBehaviour
 
         if (hit.transform.TryGetComponent(out CharacterPart part))
         {
-            part.OnHit(bulletDamage);
+            part.OnHit(bulletDamage, actor);
         }
 
         /*

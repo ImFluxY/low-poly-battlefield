@@ -28,7 +28,7 @@ public class Explosion : MonoBehaviour
                 {
                     if (col.TryGetComponent(out CharacterPart characterPart))
                     {
-                        characterPart.OnHit(damage);
+                        //characterPart.OnHit(damage);
                     }
 
                     if (col.TryGetComponent(out Rigidbody rigidbody) && rigidbody.isKinematic == false)

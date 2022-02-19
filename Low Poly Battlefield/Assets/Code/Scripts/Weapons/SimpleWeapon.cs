@@ -107,6 +107,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
     private Equipement equipement;
     private PlayerLocomotion playerLocomotion;
     private PlayerCamera playerCamera;
+    private int playerActor;
 
     private void Awake()
     {
@@ -116,6 +117,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         equipement = GetComponent<Equipement>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
         playerCamera = GetComponent<PlayerCamera>();
+        playerActor = PhotonNetwork.LocalPlayer.ActorNumber;
         weaponAnimationEvent.weaponAnimationEvent.AddListener(OnAnimationEvent);
     }
 
@@ -322,7 +324,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         ParabolicBullet bulletScript = bullet.GetComponent<ParabolicBullet>();
         if (bulletScript)
         {
-            bulletScript.Initialize(ballisticManager, currentMag.magProperties.bulletDamage, weaponRef.muzzle, currentMag.magProperties.bulletSpeed, 9.81f);
+            bulletScript.Initialize(ballisticManager, currentMag.magProperties.bulletDamage, weaponRef.muzzle, currentMag.magProperties.bulletSpeed, 9.81f, playerActor);
         }
         Destroy(bullet, currentMag.magProperties.bulletLifeTime);
 

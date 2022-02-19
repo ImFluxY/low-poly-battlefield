@@ -30,12 +30,12 @@ public class UIDisplayTeam : MonoBehaviour
         PhotonTeamController.OnClearTeams -= HandleClearTeams;
     }
 
-    private void HandleCreateTeams(List<PhotonTeam> teams, GameMode gameMode)
+    private void HandleCreateTeams(List<PhotonTeam> teams)
     {
         foreach (PhotonTeam team in teams)
         {
             UITeam uiTeam = Instantiate(_uiTeamPrefab, _teamContainer);
-            uiTeam.Initialize(team, gameMode.TeamSize);
+            uiTeam.Initialize(team, GameSettings.TeamSize);
             _uiTeams.Add(uiTeam);
         }
     }

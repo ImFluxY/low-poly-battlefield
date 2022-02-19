@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class CharacterPart : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class CharacterPart : MonoBehaviour
         playerController = transform.GetComponentInParent<PlayerController>();
     }
 
-    public void OnHit(float damage)
+    public void OnHit(float damage, int actor)
     {
-        playerController.TakeDamage(damage * partMultiplier);
+        playerController.TakeDamage(damage * partMultiplier, actor);
     }
 }

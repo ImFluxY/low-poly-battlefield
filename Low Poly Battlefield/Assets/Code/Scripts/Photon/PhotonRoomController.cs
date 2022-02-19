@@ -17,9 +17,9 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
 
     public const string GAME_MODE = "GAMEMODE";
     private const string START_GAME = "STARTGAME";
-    private const float GAME_COUNT_DOWN = 10f;
+    private const float GAME_COUNT_DOWN = 1f;
 
-    public static Action<GameMode> OnJoinRoom = delegate { };
+    public static Action OnJoinRoom = delegate { };
     public static Action<List<RoomInfo>> OnUpdateRoomList = delegate { };
     public static Action<bool> OnRoomStatusChange = delegate { };
     public static Action OnRoomLeft = delegate { };
@@ -80,7 +80,7 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.InRoom) return;
 
         _selectedGameMode = gameMode;
-        Debug.Log($"Joining new {_selectedGameMode.Name} game");            
+        Debug.Log($"Joining new {_selectedGameMode.ToString()} game");            
         //JoinPhotonRoom();
     }
 
@@ -159,7 +159,7 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
     private void JoinPhotonRandomRoom()
     {
         Hashtable expectedCustomRoomProperties = new Hashtable()
-        { {GAME_MODE, _selectedGameMode.Name} };
+        { {GAME_MODE, _selectedGameMode.ToString()} };
 
         PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, 0);
     }
@@ -169,12 +169,12 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
         RoomOptions ro = new RoomOptions();
         ro.IsOpen = true;
         ro.IsVisible = true;
-        ro.MaxPlayers = _availableGameModes[0].MaxPlayers;
+        //ro.MaxPlayers = _availableGameModes[0].MaxPlayers;
 
         string[] roomProperties = { GAME_MODE };
 
         Hashtable customRoomProperties = new Hashtable()
-        { {GAME_MODE, _availableGameModes[0].Name} };
+        { {GAME_MODE, _availableGameModes[0]} };
 
         ro.CustomRoomPropertiesForLobby = roomProperties;
         ro.CustomRoomProperties = customRoomProperties;
@@ -194,11 +194,11 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
 
     private GameMode GetRoomGameMode()
     {
-        string gameModeName = (string)PhotonNetwork.CurrentRoom.CustomProperties[GAME_MODE];
-        GameMode gameMode = null;
+        GameMode gameModeName = (GameMode)PhotonNetwork.CurrentRoom.CustomProperties[GAME_MODE];
+        GameMode gameMode = GameMode.TDM;
         for (int i = 0; i < _availableGameModes.Length; i++)
         {
-            if (string.Compare(_availableGameModes[i].Name, gameModeName) == 0)
+            if (_availableGameModes[i] == gameModeName)
             {
                 gameMode = _availableGameModes[i];
                 break;
@@ -209,7 +209,7 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
 
     private void AutoStartGame()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount >= _selectedGameMode.MaxPlayers)
+        if (PhotonNetwork.CurrentRoom.PlayerCount >= GameSettings.MaxPlayers)
             HandleStartGame();
     }
     #endregion
@@ -227,14 +227,14 @@ public class PhotonRoomController : MonoBehaviourPunCallbacks
         DebugPlayerList();
 
         _selectedGameMode = GetRoomGameMode();
-        OnJoinRoom?.Invoke(_selectedGameMode);
+        OnJoinRoom?.Invoke();
         OnRoomStatusChange?.Invoke(PhotonNetwork.InRoom);
     }
 
     public override void OnLeftRoom()
     {
         Debug.Log("You have left a Photon Room");
-        _selectedGameMode = null;
+        //_selectedGameMode = null;
         _startGame = false;
         OnRoomStatusChange?.Invoke(PhotonNetwork.InRoom);            
     }

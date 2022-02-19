@@ -2,106 +2,132 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Pun.UtilityScripts;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
-    [SerializeField]
-    private float maxHealth;
-    [SerializeField]
-    private float currentHealth;
-    [Space]
-    [SerializeField]
-    private Transform dismembredTransform;
-    [SerializeField]
-    private GameObject[] dismemberedPrefabs;
+  public ProfileData playerProfile;
+  [SerializeField] private float maxHealth;
+  [SerializeField] private float currentHealth;
+  [Space]
+  [SerializeField] private Transform dismembredTransform;
+  [SerializeField] private GameObject[] dismemberedPrefabs;
 
-    [SerializeField]
-    private MonoBehaviour[] disableOnDeath;
+  [SerializeField] private MonoBehaviour[] disableOnDeath;
 
-    private Ragdoll ragdoll;
-    private PhotonView PV;
-    [SerializeField]
-    private PlayerManager playerManager;
-    private bool isDead;
+  private Ragdoll ragdoll;
+  private PhotonView PV;
+  [SerializeField] private PlayerManager playerManager;
+  private bool isDead;
 
-    private void Awake()
+  private void Awake()
+  {
+    currentHealth = maxHealth;
+    PV = GetComponent<PhotonView>();
+    playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
+    ragdoll = GetComponent<Ragdoll>();
+  }
+
+  private void Start()
+  {
+    isDead = false;
+  }
+
+  public void Update()
+  {
+    if (!PV.IsMine)
+      return;
+
+    if (Input.GetKeyDown(KeyCode.K))
+      TakeDamage(100, PhotonNetwork.LocalPlayer.ActorNumber);
+  }
+
+  public int GetPlayerTeam()
+  {
+    return playerManager.GetMyTeam();
+  }
+
+  public void TakeDamage(float damage, int actor)
+  {
+    PV.RPC("RPC_TakeDamage", RpcTarget.All, damage, actor);
+  }
+
+  [PunRPC]
+  public void RPC_TakeDamage(float damage, int actor)
+  {
+    if (!PV.IsMine)
+      return;
+
+    currentHealth -= damage;
+    //RefreshHealthBar();
+
+    if (currentHealth <= 0)
     {
-        currentHealth = maxHealth;
-        PV = GetComponent<PhotonView>();
-        playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
-        ragdoll = GetComponent<Ragdoll>();
+      playerManager.Die(actor);
+    }
+  }
+
+  /*
+  public void Dismemberment()
+  {
+      for (int i = 0; i < dismemberedPrefabs.Length; i++)
+      {
+          Instantiate(dismemberedPrefabs[i], dismembredTransform.position, dismembredTransform.rotation);
+      }
+      Destroy(gameObject);
+  }
+  */
+
+  [PunRPC]
+  void RPC_Die()
+  {
+    GetComponent<SimpleWeapon>().detachWeapon();
+    GetComponent<PlayerCamera>().deleteCamera();
+
+    for (int i = 0; i < disableOnDeath.Length; i++)
+    {
+      disableOnDeath[i].enabled = false;
     }
 
-    private void Start()
-    {
-        isDead = false;
-    }
+    ragdoll.ActivateRagdoll();
+  }
 
-    public void Update()
-    {
-        if (!PV.IsMine)
-            return;
+  public void TrySync()
+  {
+    if (!PV.IsMine) return;
 
-        if (Input.GetKeyDown(KeyCode.K))
-            TakeDamage(100);
-    }
-
-    public int GetPlayerTeam()
-    {
-        return playerManager.GetTeam();
-    }
-
-    public void TakeDamage(float damage)
-    {
-        PV.RPC("RPC_TakeDamage", RpcTarget.All, damage);
-    }
-
-    [PunRPC]
-    void RPC_TakeDamage(float damage)
-    {
-        if (!PV.IsMine || isDead)
-            return;
-
-        currentHealth -= damage;
-        if (currentHealth <= 0.0f)
-        {
-            Die();
-        }
-    }
+    PV.RPC("SyncProfile", RpcTarget.All, PhotonConnector.localPlayerProfil.username, PhotonConnector.localPlayerProfil.level, PhotonConnector.localPlayerProfil.xp);
 
     /*
-    public void Dismemberment()
-    {
-        for (int i = 0; i < dismemberedPrefabs.Length; i++)
+        if (GameSettings.GameMode == GameMode.TDM)
         {
-            Instantiate(dismemberedPrefabs[i], dismembredTransform.position, dismembredTransform.rotation);
+          PV.RPC("SyncTeam", RpcTarget.All, GameSettings.IsAwayTeam);
         }
-        Destroy(gameObject);
+        */
+  }
+
+  [PunRPC]
+  private void SyncProfile(string p_username, int p_level, int p_xp)
+  {
+    playerProfile = new ProfileData(p_username, p_level, p_xp);
+    Debug.Log(playerProfile.username);
+    //playerUsername.text = playerProfile.username;
+  }
+
+  /*
+    [PunRPC]
+    private void SyncTeam(bool p_awayTeam)
+    {
+      awayTeam = p_awayTeam;
+
+      if (awayTeam)
+      {
+        ColorTeamIndicators(Color.red);
+      }
+      else
+      {
+        ColorTeamIndicators(Color.blue);
+      }
     }
     */
-
-    private void Die()
-    {
-        if (isDead)
-            return;
-
-        isDead = true;
-
-        PV.RPC("RPC_Die", RpcTarget.All);
-        playerManager.Invoke("Die", 5);
-    }
-
-    [PunRPC]
-    void RPC_Die()
-    {
-        GetComponent<SimpleWeapon>().detachWeapon();
-        GetComponent<PlayerCamera>().deleteCamera();
-
-        for (int i = 0; i < disableOnDeath.Length; i++)
-        {
-            disableOnDeath[i].enabled = false;
-        }
-
-        ragdoll.ActivateRagdoll();
-    }
 }

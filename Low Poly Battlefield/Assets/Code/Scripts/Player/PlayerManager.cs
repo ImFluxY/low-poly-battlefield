@@ -1,45 +1,79 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class PlayerManager : MonoBehaviour
+[System.Serializable]
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
-    PhotonView PV;
-    GameObject controller;
-    int controllerTeam;
+  public static GameObject LocalPlayerInstance;
+  [SerializeField] int myPlayerInd;
+  int myPlayerteam;
+  bool playerAdded;
+  [SerializeField] PlayerInfo myPlayerInfos;
 
-    private void Awake()
+  private void Start()
+  {
+    playerAdded = false;
+    myPlayerInd = (int)PV.InstantiationData[0];
+    myPlayerInfos = PhotonGameController.Instance.GetPlayerInfos(myPlayerInd);
+  }
+
+  public int GetMyInd()
+  {
+    return this.myPlayerInd;
+  }
+
+  public int GetMyTeam()
+  {
+    return this.myPlayerInfos.team;
+  }
+
+  public void Spawn()
+  {
+    Transform spawn = SpawnManager.instance.GetTeamSpawn(0);
+    LocalPlayerInstance = PhotonNetwork.Instantiate(Path.Combine("Characters", "Player"), spawn.position, spawn.rotation, 0, new object[] { PV.ViewID });
+  }
+
+  public void Die(int actor)
+  {
+    //Send to all players that the Local Player is dead
+    PhotonGameController.Instance.Send_ChangeStat(PhotonNetwork.LocalPlayer.ActorNumber, 1, 1);
+
+    //If someone kill me (actor = 0 → Suicide), then add a kill to that player
+    if (actor >= 0)
+      PhotonGameController.Instance.Send_ChangeStat(actor, 0, 1);
+
+    //Destroy the Local Player gameobject 
+    PhotonNetwork.Destroy(LocalPlayerInstance);
+
+    //Respawn Instantly
+    Spawn();
+  }
+
+  /*
+    public void TrySync()
     {
-        PV = GetComponent<PhotonView>();
-        controllerTeam = (int)PV.InstantiationData[0];
-        Debug.Log(controllerTeam);
+      if (!PV.IsMine) return;
+
+      PV.RPC("SyncProfile", RpcTarget.All, PhotonConnector.localPlayerProfil.username, PhotonConnector.localPlayerProfil.level, PhotonConnector.localPlayerProfil.xp);
+
+      if (GameSettings.GameMode == GameMode.TDM)
+      {
+        PV.RPC("SyncTeam", RpcTarget.All, 0);
+      }
     }
 
-    private void Start()
+    [PunRPC]
+    private void SyncProfile(string p_username, int p_level, int p_xp)
     {
-        if(PV.IsMine)
-        {
-            CreateController();
-        }
+      mPlayerProfile = new ProfileData(p_username, p_level, p_xp);
+      //playerUsername.text = playerProfile.username;
     }
 
-    void CreateController()
+    [PunRPC]
+    private void SyncTeam(int team)
     {
-        Debug.Log("Instantiate Player Controller");
-        Transform spawn = SpawnManager.instance.GetTeamSpawn(controllerTeam);
-        controller = PhotonNetwork.Instantiate(Path.Combine("Characters", "Player"), spawn.position, spawn.rotation, 0, new object[] { PV.ViewID });
-    }
 
-    public void Die()
-    {
-        PhotonNetwork.Destroy(controller);
-        CreateController();
     }
-
-    public int GetTeam()
-    {
-        return controllerTeam;
-    }
+    */
 }

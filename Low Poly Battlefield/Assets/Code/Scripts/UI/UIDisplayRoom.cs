@@ -58,7 +58,7 @@ public class UIDisplayRoom : MonoBehaviour
         }
     }
 
-    private void HandleJoinRoom(GameMode gameMode)
+    private void HandleJoinRoom()
     {
         _roomTitleText.SetText(PhotonNetwork.CurrentRoom.CustomProperties["GAMEMODE"].ToString());
 

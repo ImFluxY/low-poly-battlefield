@@ -4,9 +4,33 @@ using Photon.Pun;
 using Photon.Realtime;
 using Random = UnityEngine.Random;
 
+[System.Serializable]
+public class ProfileData
+{
+    public string username;
+    public int level;
+    public int xp;
+
+    public ProfileData()
+    {
+        this.username = "";
+        this.level = 0;
+        this.xp = 0;
+    }
+
+    public ProfileData(string u, int l, int x)
+    {
+        this.username = u;
+        this.level = l;
+        this.xp = x;
+    }
+}
+
 public class PhotonConnector : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private string nickName;
+    public static ProfileData localPlayerProfil = new ProfileData();
+    [SerializeField] private TMPro.TMP_InputField usernameField;
+
     //public static Action GetPhotonFriends = delegate { };
     public static Action OnLobbyJoined = delegate { };
     public static Action OnConnectedToPhoton = delegate { };
@@ -14,22 +38,28 @@ public class PhotonConnector : MonoBehaviourPunCallbacks
     #region Unity Method
     private void Awake()
     {
-        //nickName = PlayerPrefs.GetString("USERNAME");            
+        //myProfile = Data.LoadProfile();
         HandleUpdateUsername("Player_" + Random.Range(0, 1000));
+
+        if (!string.IsNullOrEmpty(localPlayerProfil.username))
+        {
+            usernameField.text = localPlayerProfil.username;
+        }
+
         UIConnector.OnUpdateUsername += HandleUpdateUsername;
     }
     private void Start()
     {
         if (PhotonNetwork.IsConnectedAndReady || PhotonNetwork.IsConnected) return;
-        ConnectToPhoton();
+            ConnectToPhoton();
     }
     #endregion
     #region Private Methods
     private void ConnectToPhoton()
     {
-        Debug.Log($"Connect to Photon as {nickName}");
+        Debug.Log($"Connect to Photon as {localPlayerProfil.username}");
         OnConnectedToPhoton?.Invoke();
-        PhotonNetwork.AuthValues = new AuthenticationValues(nickName);
+        PhotonNetwork.AuthValues = new AuthenticationValues(localPlayerProfil.username);
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
     }        
@@ -53,8 +83,8 @@ public class PhotonConnector : MonoBehaviourPunCallbacks
 
     private void HandleUpdateUsername(string newName)
     {
-        nickName = newName;
-        PhotonNetwork.NickName = nickName;
+        localPlayerProfil.username = newName;
+        PhotonNetwork.NickName = localPlayerProfil.username;
     }
     #endregion
 }

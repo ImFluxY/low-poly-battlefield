@@ -12,7 +12,7 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
     [SerializeField] private int _teamSize;
     [SerializeField] private PhotonTeam _priorTeam;
 
-    public static Action<List<PhotonTeam>, GameMode> OnCreateTeams = delegate { };
+    public static Action<List<PhotonTeam>> OnCreateTeams = delegate { };
     public static Action<Player, PhotonTeam> OnSwitchTeam = delegate { };
     public static Action<Player> OnRemovePlayer = delegate { };
     public static Action OnClearTeams = delegate { };
@@ -52,13 +52,13 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
         }
     }
 
-    private void HandleCreateTeams(GameMode gameMode)
+    private void HandleCreateTeams()
     {
-        CreateTeams(gameMode);
+        CreateTeams();
 
-        OnCreateTeams?.Invoke(_roomTeams, gameMode);
+        OnCreateTeams?.Invoke(_roomTeams);
 
-        AutoAssignPlayerToTeam(PhotonNetwork.LocalPlayer, gameMode);
+        AutoAssignPlayerToTeam(PhotonNetwork.LocalPlayer);
     }
 
     private void HandleLeaveRoom()
@@ -76,13 +76,13 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
     #endregion
 
     #region Private Methods
-    private void CreateTeams(GameMode gameMode)
+    private void CreateTeams()
     {
-        _teamSize = gameMode.TeamSize;
-        int numberOfTeams = gameMode.MaxPlayers;
-        if (gameMode.HasTeams)
+        _teamSize = GameSettings.TeamSize;
+        int numberOfTeams = GameSettings.MaxPlayers;
+        if (GameSettings.HasTeams)
         {
-            numberOfTeams = gameMode.MaxPlayers / gameMode.TeamSize;
+            numberOfTeams = 2;
         }
 
         for (int i = 1; i <= numberOfTeams; i++)
@@ -120,13 +120,13 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
         return canSwitch;
     }
 
-    private void AutoAssignPlayerToTeam(Player player, GameMode gameMode)
+    private void AutoAssignPlayerToTeam(Player player)
     {
         foreach (PhotonTeam team in _roomTeams)
         {
             int teamPlayerCount = PhotonTeamsManager.Instance.GetTeamMembersCount(team.Code);
 
-            if (teamPlayerCount < gameMode.TeamSize)
+            if (teamPlayerCount < GameSettings.TeamSize)
             {
                 Debug.Log($"Auto assigned {player.NickName} to {team.Name}");
                 if (player.GetPhotonTeam() == null)
