@@ -50,10 +50,10 @@ public class UIGameController : MonoBehaviour
         }
     }
 
-    private void HandleRefreshTimer(int currentMatchTime)
+    private void HandleRefreshTimer(int time)
     {
-        string minutes = (currentMatchTime / 60).ToString("00");
-        string seconds = (currentMatchTime % 60).ToString("00");
+        string minutes = (time / 60).ToString("00");
+        string seconds = (time % 60).ToString("00");
         _uiTimer.text = $"{minutes}:{seconds}";
     }
 }

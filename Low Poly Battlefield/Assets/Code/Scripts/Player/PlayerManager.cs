@@ -30,6 +30,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
   public void Spawn()
   {
+    Debug.Log("Spawn player");
     Transform spawn = SpawnManager.instance.GetTeamSpawn(0);
     LocalPlayerInstance = PhotonNetwork.Instantiate(Path.Combine("Characters", "Player"), spawn.position, spawn.rotation, 0, new object[] { PV.ViewID });
   }

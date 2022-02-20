@@ -29,6 +29,7 @@ public class ProfileData
 public class PhotonConnector : MonoBehaviourPunCallbacks
 {
     public static ProfileData localPlayerProfil = new ProfileData();
+    public static GameSettings gameSettings = new GameSettings();
     [SerializeField] private TMPro.TMP_InputField usernameField;
 
     //public static Action GetPhotonFriends = delegate { };
@@ -86,5 +87,7 @@ public class PhotonConnector : MonoBehaviourPunCallbacks
         localPlayerProfil.username = newName;
         PhotonNetwork.NickName = localPlayerProfil.username;
     }
+
+    
     #endregion
 }

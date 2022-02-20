@@ -52,7 +52,8 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
 
   private int currentMatchTime;
   private Coroutine gameTimerCoroutine;
-  private Coroutine waitingTimerCoroutine;
+  private int startingTime;
+  private Coroutine startingTimerCoroutine;
 
   private GameState state = GameState.Waiting;
 
@@ -70,8 +71,10 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
     NewMatch,
     NewPlayer,
     UpdatePlayers,
+    Spawnplayers,
     ChangeStat,
-    ChangeGameState
+    ChangeGameState,
+    RefreshTimer
   }
 
   public void OnEvent(EventData photonEvent)
@@ -95,12 +98,20 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
         Recieve_UpdatePlayers(o);
         break;
 
+      case EventCodes.Spawnplayers:
+        Receive_SpawnPlayer();
+        break;
+
       case EventCodes.ChangeStat:
         Recieve_ChangeStat(o);
         break;
 
       case EventCodes.ChangeGameState:
         Recieve_ChangeGameState(o);
+        break;
+
+      case EventCodes.RefreshTimer:
+        Recieve_RefreshTimer(o);
         break;
     }
   }
@@ -133,6 +144,11 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     OnInitializeUI?.Invoke();
 
+    if (PhotonNetwork.IsMasterClient)
+    {
+      Send_NewMatch();
+    }
+
     Send_NewPlayer(PhotonConnector.localPlayerProfil);
   }
 
@@ -145,6 +161,32 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
   {
     if (PhotonNetwork.IsConnected) return;
     SceneManager.LoadScene(0);
+  }
+
+  private void InitializeTimer(int timer)
+  {
+    if (timer == 0)
+    {
+      currentMatchTime = matchLength;
+    }
+    else
+    {
+      startingTime = 10;
+    }
+
+    OnRefreshTimerUI?.Invoke(timer == 0 ? currentMatchTime : startingTime);
+
+    if (PhotonNetwork.IsMasterClient)
+    {
+      if (timer == 0)
+      {
+        gameTimerCoroutine = StartCoroutine(MatchTimer());
+      }
+      else
+      {
+        startingTimerCoroutine = StartCoroutine(StartingGameTimer());
+      }
+    }
   }
 
   public void Send_NewMatch()
@@ -174,9 +216,6 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
       p.kills = 0;
       p.deaths = 0;
     }
-
-    // reset ui
-    OnRefreshStatsUI?.Invoke(playerInfos, localPlayerManager.GetMyInd());
 
     // spawn
     //Spawn();
@@ -219,7 +258,7 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
                 (int)data[6]);
 
     playerInfos.Add(newPlayerInfo);
-    Debug.Log("New Player Manager : " + playerInfos[0].profile.username);
+    Debug.Log("New Player : " + playerInfos[0].profile.username);
 
     if (playerInfos.Count == PhotonNetwork.CurrentRoom.PlayerCount)
     {
@@ -284,11 +323,30 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
         {
           Debug.Log("Spawn Local Player Manager");
           localPlayerManager = PhotonNetwork.Instantiate(Path.Combine("Managers", "PlayerManager"), Vector3.zero, Quaternion.identity, 0, new object[] { i - 1 }).GetComponent<PlayerManager>();
-          //localPlayerManager.SetMyInd(i - 1);
-          localPlayerManager.Spawn();
+          // reset ui
+          OnRefreshStatsUI?.Invoke(playerInfos, i - 1);
         }
       }
     }
+  }
+
+  private void Send_SpawnPlayers()
+  {
+    Debug.Log("Send Spawn All Players");
+
+    PhotonNetwork.RaiseEvent(
+        (byte)EventCodes.Spawnplayers,
+        null,
+        new RaiseEventOptions { Receivers = ReceiverGroup.All },
+        new SendOptions { Reliability = true }
+    );
+  }
+
+  private void Receive_SpawnPlayer()
+  {
+    Debug.Log("Receive Spawn Local Player");
+
+    localPlayerManager.Spawn();
   }
 
   public void Send_ChangeStat(int actor, byte stat, byte amt)
@@ -358,8 +416,13 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
         break;
       case GameState.Starting:
         Debug.Log("Game State : Starting the game");
-        // reinitialize time
-        //InitializeTimer();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+          Send_SpawnPlayers();
+          InitializeTimer(1);
+        }
+
         break;
       case GameState.Playing:
         Debug.Log("Game State : Playing the game");
@@ -367,6 +430,69 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
       case GameState.Ending:
         Debug.Log("Game State : Ending the game");
         break;
+    }
+  }
+
+  public void Send_RefreshTimer(int timer)
+  {
+    object[] package = new object[] { timer, timer == 0 ? currentMatchTime : startingTime };
+
+    PhotonNetwork.RaiseEvent(
+        (byte)EventCodes.RefreshTimer,
+        package,
+        new RaiseEventOptions { Receivers = ReceiverGroup.All },
+        new SendOptions { Reliability = true }
+    );
+  }
+
+  public void Recieve_RefreshTimer(object[] data)
+  {
+    if ((int)data[0] == 0)
+    {
+      currentMatchTime = (int)data[1];
+    }
+    else
+    {
+      startingTime = (int)data[1];
+    }
+
+    OnRefreshTimerUI?.Invoke((int)data[0] == 0 ? currentMatchTime : startingTime);
+  }
+
+  private IEnumerator StartingGameTimer()
+  {
+    yield return new WaitForSeconds(1f);
+
+    startingTime -= 1;
+
+    if (startingTime <= 0)
+    {
+      startingTimerCoroutine = null;
+      InitializeTimer(0);
+      Debug.Log("Players can now control these characters");
+    }
+    else
+    {
+      Send_RefreshTimer(1);
+      startingTimerCoroutine = StartCoroutine(StartingGameTimer());
+    }
+  }
+
+  private IEnumerator MatchTimer()
+  {
+    yield return new WaitForSeconds(1f);
+
+    currentMatchTime -= 1;
+
+    if (currentMatchTime <= 0)
+    {
+      gameTimerCoroutine = null;
+      Debug.Log("End the galme");
+    }
+    else
+    {
+      Send_RefreshTimer(0);
+      gameTimerCoroutine = StartCoroutine(MatchTimer());
     }
   }
 
