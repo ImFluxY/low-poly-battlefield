@@ -4,6 +4,8 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance;
 
+    public bool control;
+
     #region Variables
     [Header("Movements")]
     [SerializeField]
@@ -88,7 +90,7 @@ public class InputManager : MonoBehaviour
 
         foreach (sightDivider sightDivider in sightDividers)
         {
-            if(sightDivider.sightRatio == divider)
+            if (sightDivider.sightRatio == divider)
             {
                 sensitivityDivider = sightDivider.sightDivision;
             }
@@ -116,13 +118,21 @@ public class InputManager : MonoBehaviour
         get { return m_yAxis; }
     }
 
-    [Header("Menu")]
+    [Header("Menu / UI")]
     [SerializeField]
     private KeyCode m_pauseKey = KeyCode.Escape;
     protected bool m_pause;
     public bool Pause
     {
         get { return m_pause; }
+    }
+
+    [SerializeField]
+    private KeyCode m_leaderboardKey = KeyCode.Tab;
+    protected bool m_leaderboard;
+    public bool Leaderboard
+    {
+        get { return m_leaderboard; }
     }
 
     #endregion
@@ -157,23 +167,24 @@ public class InputManager : MonoBehaviour
     #region Custom Methods
     protected void HandleInput()
     {
-        m_forward = Input.GetAxisRaw(m_forwardAxis);
-        m_sideway = Input.GetAxisRaw(m_sidewayAxis);
-        m_aiming = Input.GetKey(m_aimKey);
-        m_changeFireMode = Input.GetKeyDown(m_fireModeKey);
-        m_leanLeft = Input.GetKey(m_leanLeftKey);
-        m_leanRight = Input.GetKey(m_leanRightKey);
-
-        m_reloading = Input.GetKeyDown(m_reloadKey);
-
         m_xAxis = Input.GetAxis(m_horizontalLookAxis) * Time.deltaTime * (m_xAxisSensitivity / sensitivityDivider);
         m_yAxis = Input.GetAxis(m_verticalLookAxis) * Time.deltaTime * (m_yAxisSensitivity / sensitivityDivider);
         m_freeLook = Input.GetKey(m_freeLookKey);
-
-        m_running = Input.GetKey(m_runningKey);
-        m_crouch = Input.GetKeyDown(m_crouchKey);
-
+        m_leanLeft = Input.GetKey(m_leanLeftKey);
+        m_leanRight = Input.GetKey(m_leanRightKey);
         m_pause = Input.GetKeyDown(m_pauseKey);
+        m_leaderboard =  Input.GetKey(m_leaderboardKey);
+        m_crouch = Input.GetKeyDown(m_crouchKey);
+        m_aiming = Input.GetKey(m_aimKey);
+
+        if (!control)
+            return;
+
+        m_forward = Input.GetAxisRaw(m_forwardAxis);
+        m_sideway = Input.GetAxisRaw(m_sidewayAxis);
+        m_changeFireMode = Input.GetKeyDown(m_fireModeKey);
+        m_reloading = Input.GetKeyDown(m_reloadKey);
+        m_running = Input.GetKey(m_runningKey);
     }
     #endregion
 }

@@ -4,6 +4,8 @@ using Photon.Pun;
 
 public class PlayerCamera : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public bool control;
+
     [Header("References")]
     [SerializeField]
     private Transform cam;

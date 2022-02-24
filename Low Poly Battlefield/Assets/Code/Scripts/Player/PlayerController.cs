@@ -6,7 +6,8 @@ using Photon.Pun.UtilityScripts;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
-  public ProfileData playerProfile;
+  public bool control;
+
   [SerializeField] private float maxHealth;
   [SerializeField] private float currentHealth;
   [Space]
@@ -35,7 +36,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
   public void Update()
   {
-    if (!PV.IsMine)
+    if (!PV.IsMine || !control)
       return;
 
     if (Input.GetKeyDown(KeyCode.K))
@@ -91,43 +92,4 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     ragdoll.ActivateRagdoll();
   }
-
-  public void TrySync()
-  {
-    if (!PV.IsMine) return;
-
-    PV.RPC("SyncProfile", RpcTarget.All, PhotonConnector.localPlayerProfil.username, PhotonConnector.localPlayerProfil.level, PhotonConnector.localPlayerProfil.xp);
-
-    /*
-        if (GameSettings.GameMode == GameMode.TDM)
-        {
-          PV.RPC("SyncTeam", RpcTarget.All, GameSettings.IsAwayTeam);
-        }
-        */
-  }
-
-  [PunRPC]
-  private void SyncProfile(string p_username, int p_level, int p_xp)
-  {
-    playerProfile = new ProfileData(p_username, p_level, p_xp);
-    Debug.Log(playerProfile.username);
-    //playerUsername.text = playerProfile.username;
-  }
-
-  /*
-    [PunRPC]
-    private void SyncTeam(bool p_awayTeam)
-    {
-      awayTeam = p_awayTeam;
-
-      if (awayTeam)
-      {
-        ColorTeamIndicators(Color.red);
-      }
-      else
-      {
-        ColorTeamIndicators(Color.blue);
-      }
-    }
-    */
 }

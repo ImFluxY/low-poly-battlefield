@@ -87,7 +87,6 @@ public class UIDisplayRoom : MonoBehaviour
     private void HandleMasterOfRoom(Player masterPlayer)
     {
         _roomTitleText.SetText(PhotonNetwork.CurrentRoom.CustomProperties["GAMEMODE"].ToString());
-
         if (PhotonNetwork.LocalPlayer.Equals(masterPlayer))
         {
             _startButton.SetActive(true);

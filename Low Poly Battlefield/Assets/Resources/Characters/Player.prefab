@@ -6109,10 +6109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea09940ce330f142b325f6c40530a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerProfile:
-    username: 
-    level: 0
-    xp: 0
+  control: 0
   maxHealth: 100
   currentHealth: 0
   dismembredTransform: {fileID: 6342568060598971520}
@@ -6196,6 +6193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd88ec394b31b154299452c2c3aeadd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  control: 0
   cam: {fileID: 4810364487638293932}
   cameraPivot: {fileID: 6342568059192734942}
   cameraOffset: {fileID: 6342568060119495501}
@@ -6225,6 +6223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43af89cb9448bf9439ccfd6985f6ab6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  control: 0
   characterHeight: 0
   movementState: 0
   characterGrounded: 0
@@ -6260,6 +6259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94820e1c30723a5428a77de5d4b17de3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  control: 0
   forceAiming: 0
   noRecoil: 0
   noAnimation: 0

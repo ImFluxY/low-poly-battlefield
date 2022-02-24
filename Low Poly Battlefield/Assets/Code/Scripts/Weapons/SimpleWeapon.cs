@@ -14,6 +14,8 @@ public enum FireMode
 
 public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public bool control;
+
     [Header("Debugging")]
     [SerializeField]
     private bool forceAiming;
@@ -141,7 +143,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         weaponGraphics.Add(newWeapon);
         weaponRef = newWeapon.GetComponent<WeaponReferences>();
 
-        if(camoTexture)
+        if (camoTexture)
         {
             for (int i = 0; i < weaponRef.meshCamos.Length; i++)
             {
@@ -153,9 +155,9 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         if (!sight)
             sight = weapon.defaultSight;
 
-        if(PV.IsMine && sight.sightPrefab)
+        if (PV.IsMine && sight.sightPrefab)
             weaponGraphics.Add(Instantiate(sight.sightPrefab, weaponRef.sightPos));
-        else if(!PV.IsMine && sight.fakeSightPrefab)
+        else if (!PV.IsMine && sight.fakeSightPrefab)
             weaponGraphics.Add(Instantiate(sight.fakeSightPrefab, weaponRef.sightPos));
 
         aimingOffsetPos.Clear();
@@ -175,7 +177,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
         if (cantedSight)
         {
-            if(weaponRef.cantedRail)
+            if (weaponRef.cantedRail)
                 weaponRef.cantedRail.SetActive(true);
 
             weaponGraphics.Add(Instantiate(cantedSight.sightPrefab, weaponRef.cantedSightPos));
@@ -190,7 +192,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
                 weaponRef.cantedRail.SetActive(false);
         }
 
-        if(attachements.Length > 0)
+        if (attachements.Length > 0)
         {
             for (int i = 0; i < attachements.Length; i++)
             {
@@ -260,14 +262,18 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         if (!weapon)
             return;
 
-        if(PV.IsMine && !Pause.paused)
+        if (PV.IsMine && !Pause.paused)
         {
             AimingControl();
-            FireControl();
-            AnimationControl();
 
-            if (fireTimer < weapon.fireRate)
-                fireTimer += Time.deltaTime;
+            if (control)
+            {
+                FireControl();
+                AnimationControl();
+
+                if (fireTimer < weapon.fireRate)
+                    fireTimer += Time.deltaTime;
+            }
         }
 
         AnimationLogic();
@@ -427,7 +433,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
     private void AimingLogic()
     {
-        if(isAiming)
+        if (isAiming)
         {
             inputManager.SetSightDivider(sightRations[aimingOffsetIndex]);
             weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, aimingOffsetPos[aimingOffsetIndex], Time.deltaTime / weapon.aimingDuration);
@@ -456,7 +462,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
     private void TiltSway()
     {
-        if(isAiming)
+        if (isAiming)
         {
             tilt.x = inputManager.YLookAxis * weapon.swayRotationAmount;
             tilt.y = inputManager.XLookAxis * weapon.swayRotationAmount;
@@ -562,7 +568,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         currentMag = equipement.magazins[equipement.magSelected];
         equipement.magazins.Remove(currentMag);
 
-        if(currentMag.magazin != null)
+        if (currentMag.magazin != null)
         {
             currentMag.magazin.transform.SetParent(leftHandMagPos);
             currentMag.magazin.transform.localPosition = Vector3.zero;

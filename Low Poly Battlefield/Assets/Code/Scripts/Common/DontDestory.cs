@@ -13,8 +13,6 @@ namespace KnoxGameStudios
         {
             GameObject[] objs = GameObject.FindGameObjectsWithTag("Team Manager");
 
-            Debug.Log(objs);
-
             if (objs.Length > 1)
             {
                 Destroy(gameObject);

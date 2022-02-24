@@ -39,16 +39,16 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
 
     #region Handle Methods
     private void HandleSwitchTeam(PhotonTeam newTeam)
-    {            
+    {
         if (PhotonNetwork.LocalPlayer.GetPhotonTeam() == null)
         {
             _priorTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
-            PhotonNetwork.LocalPlayer.JoinTeam(newTeam);                
+            PhotonNetwork.LocalPlayer.JoinTeam(newTeam);
         }
         else if (CanSwitchToTeam(newTeam))
         {
             _priorTeam = PhotonNetwork.LocalPlayer.GetPhotonTeam();
-            PhotonNetwork.LocalPlayer.SwitchTeam(newTeam);                
+            PhotonNetwork.LocalPlayer.SwitchTeam(newTeam);
         }
     }
 
@@ -122,6 +122,39 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
 
     private void AutoAssignPlayerToTeam(Player player)
     {
+        int armyTeamCount = PhotonTeamsManager.Instance.GetTeamMembersCount(1);
+        int terroristTeamCount = PhotonTeamsManager.Instance.GetTeamMembersCount(2);
+
+        if (armyTeamCount < terroristTeamCount)
+        {
+            byte team = 1;
+
+            Debug.Log($"Auto assigned {player.NickName} to Army Team");
+            if (player.GetPhotonTeam() == null)
+            {
+                player.JoinTeam(team);
+            }
+            else if (player.GetPhotonTeam().Code != team)
+            {
+                player.SwitchTeam(team);
+            }
+        }
+        else
+        {
+            byte team = 2;
+
+            Debug.Log($"Auto assigned {player.NickName} to Terrorist Team");
+            if (player.GetPhotonTeam() == null)
+            {
+                player.JoinTeam(team);
+            }
+            else if (player.GetPhotonTeam().Code != team)
+            {
+                player.SwitchTeam(team);
+            }
+        }
+
+        /*
         foreach (PhotonTeam team in _roomTeams)
         {
             int teamPlayerCount = PhotonTeamsManager.Instance.GetTeamMembersCount(team.Code);
@@ -140,6 +173,7 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
                 break;
             }
         }
+        */
     }
     #endregion
 
@@ -152,9 +186,9 @@ public class PhotonTeamController : MonoBehaviourPunCallbacks
             if (teamCodeObject == null) return;
 
             byte teamCode = (byte)teamCodeObject;
-                
+
             PhotonTeam newTeam;
-            if(PhotonTeamsManager.Instance.TryGetTeamByCode(teamCode, out newTeam))
+            if (PhotonTeamsManager.Instance.TryGetTeamByCode(teamCode, out newTeam))
             {
                 Debug.Log($"Switching {targetPlayer.NickName} to new team {newTeam.Name}");
                 OnSwitchTeam?.Invoke(targetPlayer, newTeam);

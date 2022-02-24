@@ -36,8 +36,6 @@ public class ParabolicBullet : MonoBehaviour
 
     private void OnHit(RaycastHit hit, Vector3 direction)
     {
-        Debug.Log(hit.transform.name);
-
         if (hit.transform.TryGetComponent(out CharacterPart part))
         {
             part.OnHit(bulletDamage, actor);

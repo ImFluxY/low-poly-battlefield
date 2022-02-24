@@ -18,6 +18,8 @@ public enum MovementState
 
 public class PlayerLocomotion : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public bool control;
+
     [Header("States")]
     public CharacterHeight characterHeight;
     public MovementState movementState;
@@ -48,7 +50,7 @@ public class PlayerLocomotion : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        if (PV.IsMine && !Pause.paused)
+        if (PV.IsMine && !Pause.paused && control)
         {
             ChangeMovementState();
             ChangeCharacterHeight();
