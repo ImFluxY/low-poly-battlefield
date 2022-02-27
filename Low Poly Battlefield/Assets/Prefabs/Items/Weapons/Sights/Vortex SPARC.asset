@@ -16,12 +16,25 @@ MonoBehaviour:
   fakeSightPrefab: {fileID: 8553916397856888056, guid: 5e15306ac25b4c5498757eb4ea2c73cb, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 1
-  aimingOffsetPos: {x: 0, y: -0.206, z: 0.045}
-  aimingOffsetRot: {x: 0, y: 0, z: 0}
+  primaryAimingOffset:
+  - weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    needRail: 0
+    position: {x: 0, y: -0.206, z: 0.045}
+    rotation: {x: 0, y: 0, z: 0}
+  - weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    needRail: 1
+    position: {x: 0, y: -0.223, z: 0.17}
+    rotation: {x: 0, y: 0, z: 0}
   secondarySightRatio: 0
   twoSights: 0
-  secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
-  secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondaryAimingOffset: []
   cantedSightRatio: 0
-  cantedAimingOffsetPos: {x: 0.066, y: -0.1815, z: 0.13}
-  cantedAimingOffsetRot: {x: 0, y: 0, z: 45}
+  cantedAimingOffset:
+  - weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    needRail: 0
+    position: {x: 0.066, y: -0.1815, z: 0.13}
+    rotation: {x: 0, y: 0, z: 45}
+  - weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    needRail: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}

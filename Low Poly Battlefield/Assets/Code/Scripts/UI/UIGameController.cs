@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UIGameController : MonoBehaviour
 {
-    private TMP_Text _uiMykills;
-    private TMP_Text _uiMydeaths;
     private TMP_Text _uiTimer;
     private Transform _uiLeaderboard;
     [SerializeField] GameObject playerCardPrefab;
@@ -17,7 +15,6 @@ public class UIGameController : MonoBehaviour
     private void Awake()
     {
         PhotonGameController.OnInitializeUI += HandleInitialize;
-        PhotonGameController.OnRefreshStatsUI += HandleRefreshStats;
         PhotonGameController.OnRefreshTimerUI += HandleRefreshTimer;
         PhotonGameController.OnRefreshLeaderboard += HandlerUpdateLeaderboard;
         PhotonGameController.OnForceShowLeaderboard += HandleForceShowLeaderboard;
@@ -26,7 +23,6 @@ public class UIGameController : MonoBehaviour
     private void OnDestroy()
     {
         PhotonGameController.OnInitializeUI -= HandleInitialize;
-        PhotonGameController.OnRefreshStatsUI -= HandleRefreshStats;
         PhotonGameController.OnRefreshTimerUI -= HandleRefreshTimer;
         PhotonGameController.OnRefreshLeaderboard -= HandlerUpdateLeaderboard;
         PhotonGameController.OnForceShowLeaderboard -= HandleForceShowLeaderboard;
@@ -34,7 +30,8 @@ public class UIGameController : MonoBehaviour
 
     private void Update()
     {
-        _uiLeaderboard.gameObject.SetActive(InputManager.Instance.Leaderboard || forceShowLeaderboard);
+        if(_uiLeaderboard != null)
+            _uiLeaderboard.gameObject.SetActive(InputManager.Instance.Leaderboard || forceShowLeaderboard);
     }
 
     private void HandleForceShowLeaderboard(bool b)
@@ -44,25 +41,9 @@ public class UIGameController : MonoBehaviour
 
     private void HandleInitialize()
     {
-        _uiMykills = GameObject.Find("HUD/Stats/Kills/Text").GetComponent<TMP_Text>();
-        _uiMydeaths = GameObject.Find("HUD/Stats/Deaths/Text").GetComponent<TMP_Text>();
         _uiTimer = GameObject.Find("HUD/Timer/Text").GetComponent<TMP_Text>();
         _uiLeaderboard = GameObject.Find("HUD").transform.Find("Leaderboard").transform;
         //_uiEndgame = GameObject.Find("Canvas").transform.Find("End Game").transform;
-    }
-
-    private void HandleRefreshStats(List<PlayerInfo> playerInfos, int myind)
-    {
-        if (playerInfos.Count > myind)
-        {
-            _uiMykills.text = $"{playerInfos[myind].kills} kills";
-            _uiMydeaths.text = $"{playerInfos[myind].deaths} deaths";
-        }
-        else
-        {
-            _uiMykills.text = "0 kills";
-            _uiMydeaths.text = "0 deaths";
-        }
     }
 
     private void HandleRefreshTimer(int time)

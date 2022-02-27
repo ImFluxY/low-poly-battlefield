@@ -5,15 +5,15 @@ using System.IO;
 [System.Serializable]
 public class PlayerManager : MonoBehaviourPunCallbacks
 {
-    public static GameObject LocalPlayerInstance;
+    [SerializeField] public static GameObject LocalPlayerInstance;
     [SerializeField] int myPlayerInd;
-    int myPlayerteam;
     bool playerAdded;
     [SerializeField] PlayerInfo myPlayerInfos;
     private PlayerController localPlayerController;
     private PlayerLocomotion localPlayerLocomotion;
     private SimpleWeapon localPlayerWeapon;
     private InputManager localPlayerInputManager;
+    private PlayerEquipement localPlayerEquipement;
 
     public void EnablePlayerControl()
     {

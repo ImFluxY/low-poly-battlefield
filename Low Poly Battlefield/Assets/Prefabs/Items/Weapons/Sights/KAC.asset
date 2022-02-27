@@ -16,12 +16,21 @@ MonoBehaviour:
   fakeSightPrefab: {fileID: 8891924264526305694, guid: e119d08be2cfa1245a327f479a6092a0, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 0
+  primaryAimingOffset:
+  - weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    position: {x: 0, y: -0.188, z: 0.16}
+    rotation: {x: 0, y: 0, z: 0}
   aimingOffsetPos: {x: 0, y: -0.188, z: 0.16}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
   secondarySightRatio: 0
   twoSights: 0
+  secondaryAimingOffset: []
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
   cantedSightRatio: 0
+  cantedAimingOffset:
+  - weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    position: {x: 0.066, y: -0.151, z: 0.2}
+    rotation: {x: 0, y: 0, z: 45}
   cantedAimingOffsetPos: {x: 0.066, y: -0.151, z: 0.2}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 45}

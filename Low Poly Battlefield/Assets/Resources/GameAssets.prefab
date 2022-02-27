@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8449896092142908561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8449896092142908560}
+  - component: {fileID: 8449896092142908563}
+  m_Layer: 0
+  m_Name: GameAssets
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8449896092142908560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8449896092142908561}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8449896092142908563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8449896092142908561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441b5da7bbe1ea348b4122600a8ff55a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambianteSoundAudioClips:
+  - clipName: Forest
+    sound: 0
+    audioClip: {fileID: 8300000, guid: becf97fbc0505a345ac5db108be0630a, type: 3}
+  soundAudioClips:
+  - clipName: 5.56 Shell Concrete Collision
+    sound: 1
+    audioClip: {fileID: 8300000, guid: f9eeb5bdf9fab4a428357fa383a5cf75, type: 3}
+  - clipName: Magazin Collision
+    sound: 2
+    audioClip: {fileID: 8300000, guid: 784ea21afd3568742b6b981af0e0399a, type: 3}
+  - clipName: Footstep Concrete
+    sound: 0
+    audioClip: {fileID: 8300000, guid: e761b88eb21faef4db589cd7957063a7, type: 3}
+  weaponSoundAudioClips:
+  - audioName: M4A1 Shot
+    weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    sound: 0
+    audioClip: {fileID: 8300000, guid: 5bb3cf38d0833e04495eab3de3525892, type: 3}
+  - audioName: M4A1 Empty Shot
+    weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    sound: 1
+    audioClip: {fileID: 8300000, guid: 2c097c5d674c6444791d0f908477d88b, type: 3}
+  - audioName: M4A1 Mag In
+    weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    sound: 2
+    audioClip: {fileID: 8300000, guid: c6c5ecb1838a7b6439b9054fba6b5c25, type: 3}
+  - audioName: M4A1 Mag Out
+    weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    sound: 3
+    audioClip: {fileID: 8300000, guid: 7b21eb9e4ad364d439cf5615d8e22ca3, type: 3}
+  - audioName: AK47  Shot
+    weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    sound: 0
+    audioClip: {fileID: 8300000, guid: 4f264a4ec1edd0f4d8ea671e239f97f0, type: 3}
+  - audioName: AK47  Mag In
+    weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    sound: 2
+    audioClip: {fileID: 8300000, guid: b4f40a42488f21245a8825fa756764b3, type: 3}
+  - audioName: AK47  Mag Out
+    weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    sound: 3
+    audioClip: {fileID: 8300000, guid: 1418c70f2128a3a458eca788882a95bc, type: 3}

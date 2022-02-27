@@ -16,12 +16,27 @@ MonoBehaviour:
   fakeSightPrefab: {fileID: 6644043435828655495, guid: e7f92fd4b78ffa9459b086c6d0cfa68c, type: 3}
   switchSpeed: 0.2
   primarySightRatio: 0
+  primaryAimingOffset:
+  - weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    position: {x: 0, y: -0.187, z: 0.12}
+    rotation: {x: 0, y: 0, z: 0}
+  - weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
   aimingOffsetPos: {x: 0, y: -0.187, z: 0.12}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
   secondarySightRatio: 0
   twoSights: 0
+  secondaryAimingOffset: []
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
   cantedSightRatio: 0
+  cantedAimingOffset:
+  - weapon: {fileID: 11400000, guid: 283e830b396503946934358f82bab484, type: 2}
+    position: {x: 0.066, y: -0.164, z: 0.2}
+    rotation: {x: 0, y: 0, z: 45}
+  - weapon: {fileID: 11400000, guid: eafd4b56098c097498f1d31bfa2e51a1, type: 2}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0}
   cantedAimingOffsetPos: {x: 0.066, y: -0.164, z: 0.2}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 45}

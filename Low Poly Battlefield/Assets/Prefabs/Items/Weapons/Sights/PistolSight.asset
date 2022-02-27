@@ -13,11 +13,21 @@ MonoBehaviour:
   m_Name: PistolSight
   m_EditorClassIdentifier: 
   sightPrefab: {fileID: 0}
+  fakeSightPrefab: {fileID: 0}
   switchSpeed: 0.2
+  primarySightRatio: 0
+  primaryAimingOffset:
+  - weapon: {fileID: 0}
+    position: {x: 0, y: -0.074, z: 0.3}
+    rotation: {x: 0, y: 0, z: 0}
   aimingOffsetPos: {x: 0, y: -0.074, z: 0.3}
   aimingOffsetRot: {x: 0, y: 0, z: 0}
+  secondarySightRatio: 0
   twoSights: 0
+  secondaryAimingOffset: []
   secondeAimingOffsetPos: {x: 0, y: 0, z: 0}
   secondeAimingOffsetRot: {x: 0, y: 0, z: 0}
+  cantedSightRatio: 0
+  cantedAimingOffset: []
   cantedAimingOffsetPos: {x: 0, y: 0, z: 0}
   cantedAimingOffsetRot: {x: 0, y: 0, z: 0}

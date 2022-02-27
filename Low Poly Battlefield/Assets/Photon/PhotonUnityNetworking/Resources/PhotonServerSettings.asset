@@ -49,6 +49,7 @@ MonoBehaviour:
   - RPC_JoinTeam
   - SyncProfile
   - SyncTeam
+  - RPC_SwitchWeapon
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

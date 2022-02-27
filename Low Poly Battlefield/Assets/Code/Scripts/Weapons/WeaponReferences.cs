@@ -12,6 +12,7 @@ public class WeaponReferences : MonoBehaviour
     [Header("Weapon Customization")]
     public Transform magPos;
     public Transform sightPos;
+    public GameObject rail;
     public Transform cantedSightPos;
     public GameObject cantedRail;
     public Transform underBarrelPos;

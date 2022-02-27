@@ -10,17 +10,22 @@ public class Sight : ScriptableObject
     public float switchSpeed = .2f;
     [Header("Primary Sight")]
     public SightRatio primarySightRatio;
-    public Vector3 aimingOffsetPos;
-    public Vector3 aimingOffsetRot;
+    public SightOffsets[] primaryAimingOffset;
     [Header("Secondary Sight")]
     public SightRatio secondarySightRatio;
     public bool twoSights;
-    public Vector3 secondeAimingOffsetPos;
-    public Vector3 secondeAimingOffsetRot;
+    public SightOffsets[] secondaryAimingOffset;
     [Header("Canted Sight")]
     public SightRatio cantedSightRatio;
-    public Vector3 cantedAimingOffsetPos;
-    public Vector3 cantedAimingOffsetRot;
+    public SightOffsets[] cantedAimingOffset;
+}
+
+[System.Serializable]
+public class SightOffsets{
+    public WeaponProperties weapon;
+    public bool needRail;
+    public Vector3 position;
+    public Vector3 rotation;
 }
 
 public enum SightRatio

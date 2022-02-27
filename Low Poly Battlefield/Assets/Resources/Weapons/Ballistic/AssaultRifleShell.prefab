@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1064188843}
   - component: {fileID: 8635529999642895179}
   - component: {fileID: -4342674058825721186}
+  - component: {fileID: 5334699952771961115}
   m_Layer: 0
   m_Name: AssaultRifleShell
   m_TagString: Untagged
@@ -155,3 +156,18 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &5334699952771961115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9013658637490596916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25259fc7bfe4a340b7fef80c5bd09ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playSoundAtPosition: 1
+  soundToPlay: 1
+  minimumCollisionMagnitude: 2

@@ -42,18 +42,16 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public static PhotonGameController Instance;
 
+    public bool noMatchTimer = false;
     public int matchLength = 180;
+    public int startingLength = 10;
+    public int endingLenght = 30;
     public int killcount = 3;
     public bool perpetual = false;
 
     public GameObject mapCam;
     public PlayerManager localPlayerManager;
     public List<PlayerInfo> playerInfos = new List<PlayerInfo>();
-
-    private int currentMatchTime;
-    private Coroutine gameTimerCoroutine;
-    private int startingTime;
-    private Coroutine startingTimerCoroutine;
 
     private Coroutine TimerCoroutine;
     private int currentTime;
@@ -62,7 +60,6 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
 
     //Actions
     public static Action OnInitializeUI = delegate { };
-    public static Action<List<PlayerInfo>, int> OnRefreshStatsUI = delegate { };
     public static Action<int> OnRefreshTimerUI = delegate { };
     public static Action<List<PlayerInfo>> OnRefreshLeaderboard = delegate { };
     public static Action<bool> OnForceShowLeaderboard = delegate { };
@@ -182,7 +179,7 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             //Starting Timer
             case 0:
-                currentTime = 10;
+                currentTime = startingLength;
                 break;
 
             //Current Match Timer
@@ -192,7 +189,7 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
 
             //Ending Match Timer
             case 2:
-                currentTime = 30;
+                currentTime = endingLenght;
                 break;
         }
 
@@ -339,7 +336,6 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
                     Debug.Log("Spawn Local Player Manager");
                     localPlayerManager = PhotonNetwork.Instantiate(Path.Combine("Managers", "PlayerManager"), Vector3.zero, Quaternion.identity, 0, new object[] { i - 1 }).GetComponent<PlayerManager>();
                     // reset ui
-                    OnRefreshStatsUI?.Invoke(playerInfos, i - 1);
                     OnRefreshLeaderboard?.Invoke(playerInfos);
                 }
             }
@@ -405,9 +401,7 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
                         break;
                 }
 
-                if (i == localPlayerManager.GetMyInd()) OnRefreshStatsUI?.Invoke(playerInfos, localPlayerManager.GetMyInd());
                 OnRefreshLeaderboard?.Invoke(playerInfos);
-
                 break;
             }
         }
@@ -476,7 +470,8 @@ public class PhotonGameController : MonoBehaviourPunCallbacks, IOnEventCallback
                 break;
             case GameState.Playing:
                 Debug.Log("Game State : Playing the game");
-                InitializeTimer(1);
+                if(!noMatchTimer)
+                    InitializeTimer(1);
                 localPlayerManager.EnablePlayerControl();
                 break;
             case GameState.Ending:
