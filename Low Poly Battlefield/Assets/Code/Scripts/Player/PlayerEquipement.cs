@@ -33,6 +33,9 @@ public class PlayerEquipement : MonoBehaviour
 
   private void Update()
   {
+    if(!PV.IsMine)
+      return;
+
     //Debug.Log("Count " + equippedWeapons.Count);
     if (equippedWeapons.Count <= 0)
       return;
@@ -111,11 +114,12 @@ public class PlayerEquipement : MonoBehaviour
     currentWeapon.SetupWeapon();
 
     //Setup Weapon Mag
-    if (currentWeapon.currentMag.magProperties == null)
+
+    if (currentWeapon.weaponRef.currentMag.magProperties == null)
     {
-      currentWeapon.currentMag.currentAmmoCount = currentWeaponProperties.magazinType.maxAmmoCount;
-      currentWeapon.currentMag.magProperties = currentWeaponProperties.magazinType;
-      currentWeapon.currentMag.magazin = Instantiate(currentWeaponProperties.magazinType.magPrefab, currentWeapon.weaponRef.magPos);
+      currentWeapon.weaponRef.currentMag.currentAmmoCount = currentWeaponProperties.magazinType.maxAmmoCount;
+      currentWeapon.weaponRef.currentMag.magProperties = currentWeaponProperties.magazinType;
+      currentWeapon.weaponRef.currentMag.magazin = Instantiate(currentWeaponProperties.magazinType.magPrefab, currentWeapon.weaponRef.magPos);
     }
   }
 

@@ -22,4 +22,6 @@ public class WeaponReferences : MonoBehaviour
     public Transform muzzlePos;
     public Transform stockPos;
     public MeshRenderer[] meshCamos;
+    [Header("Magazin")]
+    public weaponMag currentMag;
 }

@@ -5720,6 +5720,7 @@ MonoBehaviour:
   stockPos: {fileID: 3896886800298209807}
   meshCamos:
   - {fileID: 3911374650856036660}
+  - {fileID: 3909340343737806273}
 --- !u!1 &3896886799594435409
 GameObject:
   m_ObjectHideFlags: 0

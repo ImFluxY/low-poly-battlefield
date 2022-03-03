@@ -64,9 +64,6 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   [SerializeField]
   private FireMode fireMode;
 
-  [Header("Magazin")]
-  public weaponMag currentMag;
-
   [Header("Clipping")]
   [SerializeField]
   private LayerMask clippingMask;
@@ -338,10 +335,10 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   private void Shoot()
   {
     /* Mag */
-    if (currentMag == null || currentMag.currentAmmoCount <= 0)
+    if (weaponRef.currentMag == null || weaponRef.currentMag.currentAmmoCount <= 0)
       return;
 
-    currentMag.currentAmmoCount--;
+    weaponRef.currentMag.currentAmmoCount--;
 
     SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Shot, weapon.weaponProperties.weaponId);
 
@@ -349,13 +346,13 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
     /* Realistic Ballistic */
 
-    GameObject bullet = Instantiate(currentMag.magProperties.bulletPrefab, weaponRef.muzzle.position, weaponRef.muzzle.rotation);
+    GameObject bullet = Instantiate(weaponRef.currentMag.magProperties.bulletPrefab, weaponRef.muzzle.position, weaponRef.muzzle.rotation);
     ParabolicBullet bulletScript = bullet.GetComponent<ParabolicBullet>();
     if (bulletScript)
     {
-      bulletScript.Initialize(ballisticManager, currentMag.magProperties.bulletDamage, weaponRef.muzzle, currentMag.magProperties.bulletSpeed, 9.81f, playerActor);
+      bulletScript.Initialize(ballisticManager, weaponRef.currentMag.magProperties.bulletDamage, weaponRef.muzzle, weaponRef.currentMag.magProperties.bulletSpeed, 9.81f, playerActor);
     }
-    Destroy(bullet, currentMag.magProperties.bulletLifeTime);
+    Destroy(bullet, weaponRef.currentMag.magProperties.bulletLifeTime);
 
     /* Fire Rate */
     fireTimer = 0.0f;
@@ -403,7 +400,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   private void RecoilLogic()
   {
-    if (!Input.GetMouseButton(0) || currentMag.currentAmmoCount <= 0)
+    if (!Input.GetMouseButton(0) || weaponRef.currentMag.currentAmmoCount <= 0)
     {
       CurrentRecoil1 = Vector3.Lerp(CurrentRecoil1, Vector3.zero, weapon.recoilRotComeBackTime * Time.fixedDeltaTime);
     }
@@ -581,40 +578,40 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   private void DetachMagazine()
   {
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.weaponProperties.weaponId, currentMag.magazin.transform.position);
-    currentMag.magazin.transform.SetParent(leftHandMagPos);
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.weaponProperties.weaponId, weaponRef.currentMag.magazin.transform.position);
+    weaponRef.currentMag.magazin.transform.SetParent(leftHandMagPos);
   }
 
   private void DropMagazine()
   {
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.weaponProperties.weaponId, currentMag.magazin.transform.position);
-    currentMag.magazin.GetComponent<Rigidbody>().isKinematic = false;
-    currentMag.magazin.transform.SetParent(null);
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.weaponProperties.weaponId, weaponRef.currentMag.magazin.transform.position);
+    weaponRef.currentMag.magazin.GetComponent<Rigidbody>().isKinematic = false;
+    weaponRef.currentMag.magazin.transform.SetParent(null);
   }
 
   private void RefillMagazine()
   {
-    currentMag = playerEquipement.magazins[playerEquipement.magSelected];
-    playerEquipement.magazins.Remove(currentMag);
+    weaponRef.currentMag = playerEquipement.magazins[playerEquipement.magSelected];
+    playerEquipement.magazins.Remove(weaponRef.currentMag);
 
-    if (currentMag.magazin != null)
+    if (weaponRef.currentMag.magazin != null)
     {
-      currentMag.magazin.transform.SetParent(leftHandMagPos);
-      currentMag.magazin.transform.localPosition = Vector3.zero;
-      currentMag.magazin.transform.localRotation = Quaternion.Euler(Vector3.zero);
+      weaponRef.currentMag.magazin.transform.SetParent(leftHandMagPos);
+      weaponRef.currentMag.magazin.transform.localPosition = Vector3.zero;
+      weaponRef.currentMag.magazin.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
     else
     {
-      currentMag.magazin = Instantiate(weapon.magazinType.magPrefab, leftHandMagPos);
+      weaponRef.currentMag.magazin = Instantiate(weapon.magazinType.magPrefab, leftHandMagPos);
     }
   }
 
   private void AttachMagazine()
   {
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_In, weapon.weaponProperties.weaponId, currentMag.magazin.transform.position);
-    currentMag.magazin.transform.SetParent(weaponRef.magPos);
-    currentMag.magazin.transform.localPosition = Vector3.zero;
-    currentMag.magazin.transform.localRotation = Quaternion.Euler(Vector3.zero);
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_In, weapon.weaponProperties.weaponId, weaponRef.currentMag.magazin.transform.position);
+    weaponRef.currentMag.magazin.transform.SetParent(weaponRef.magPos);
+    weaponRef.currentMag.magazin.transform.localPosition = Vector3.zero;
+    weaponRef.currentMag.magazin.transform.localRotation = Quaternion.Euler(Vector3.zero);
   }
 
   private void TakeGrenade()
