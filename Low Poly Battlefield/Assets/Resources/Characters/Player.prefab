@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &203347897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203347898}
+  m_Layer: 31
+  m_Name: WeaponHolderRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &203347898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203347897}
+  m_LocalRotation: {x: 0.18694742, y: 0.68929607, z: 0.0742527, w: 0.6959944}
+  m_LocalPosition: {x: -0.294, y: -0.121, z: -0.259}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6342568060286301252}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 9.083, y: 91.17, z: 21.449}
 --- !u!1 &316404787
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +156,36 @@ MonoBehaviour:
   playSoundAtPosition: 1
   volume: 0.8
   soundToPlay: 0
+--- !u!1 &1746351059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1746351060}
+  m_Layer: 31
+  m_Name: WeaponHolderLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746351060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746351059}
+  m_LocalRotation: {x: -0.07805548, y: 0.7099217, z: -0.18539439, w: 0.67494255}
+  m_LocalPosition: {x: -0.294, y: -0.121, z: 0.259}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6342568060286301252}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 9.083, y: 91.17, z: -21.449}
 --- !u!1 &836392308487647633
 GameObject:
   m_ObjectHideFlags: 0
@@ -6131,20 +6191,20 @@ GameObject:
   - component: {fileID: 6342568059386516341}
   - component: {fileID: 6342568059386516330}
   - component: {fileID: 6342568059386516350}
+  - component: {fileID: 5725118641006253207}
   - component: {fileID: 6342568059386516342}
   - component: {fileID: 2097496550}
   - component: {fileID: 3675717226019116490}
   - component: {fileID: -6271840944229498491}
   - component: {fileID: 6452761578936444445}
   - component: {fileID: 8192776733414037786}
-  - component: {fileID: 5725118641006253207}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6342568059386516323
 Transform:
   m_ObjectHideFlags: 0
@@ -6434,6 +6494,65 @@ MonoBehaviour:
   dampTime: 0.15
   runningParameter: Running
   crouchParameter: Crouch
+--- !u!114 &5725118641006253207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6342568059386516336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8435827d612384441bc0af7421be7ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magazinSites:
+  - magazinSiteTransform: {fileID: 6342568060048642687}
+    magazinType: 0
+    mag: {fileID: 0}
+  - magazinSiteTransform: {fileID: 6342568059614328237}
+    magazinType: 0
+    mag: {fileID: 0}
+  - magazinSiteTransform: {fileID: 6342568059377464516}
+    magazinType: 0
+    mag: {fileID: 0}
+  currentWeapon: {fileID: 0}
+  selectedWeapon: 0
+  equippedWeapons:
+  - properties: {fileID: 11400000, guid: fab5f5befd35b4b4d8760d460f3c9a5c, type: 2}
+    weaponGraphics: []
+    weaponRef: {fileID: 0}
+    sight: {fileID: 0}
+    cantedSight: {fileID: 0}
+    camoTexture: {fileID: 0}
+    attachements:
+    - {fileID: 11400000, guid: 4dbf592d3b8954541becdd5b39eb8f97, type: 2}
+    aimingOffsetIndex: 0
+    sightRatios: 
+    aimingOffsetPos: []
+    aimingOffsetRot: []
+    magazins:
+    - magazin: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
+      magazinObj: {fileID: 0}
+  - properties: {fileID: 11400000, guid: 617cbb2f0e895724f8b153682c08ceee, type: 2}
+    weaponGraphics: []
+    weaponRef: {fileID: 0}
+    sight: {fileID: 0}
+    cantedSight: {fileID: 0}
+    camoTexture: {fileID: 0}
+    attachements:
+    - {fileID: 11400000, guid: 4dbf592d3b8954541becdd5b39eb8f97, type: 2}
+    aimingOffsetIndex: 0
+    sightRatios: 
+    aimingOffsetPos: []
+    aimingOffsetRot: []
+    magazins:
+    - magazin: {fileID: 11400000, guid: d26c1a153d4d96d40b9d311a815dc416, type: 2}
+      magazinObj: {fileID: 0}
+  selectedGrenade: 0
+  equippedGrenades:
+  - {fileID: 11400000, guid: 726e12e9e5907ea448e40892d6795063, type: 2}
+  - {fileID: 11400000, guid: 726e12e9e5907ea448e40892d6795063, type: 2}
 --- !u!114 &6342568059386516342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6450,7 +6569,19 @@ MonoBehaviour:
   forceAiming: 0
   noRecoil: 0
   noAnimation: 0
-  weapon: {fileID: 0}
+  weapon:
+    properties: {fileID: 0}
+    weaponGraphics: []
+    weaponRef: {fileID: 0}
+    sight: {fileID: 0}
+    cantedSight: {fileID: 0}
+    camoTexture: {fileID: 0}
+    attachements: []
+    aimingOffsetIndex: 0
+    sightRatios: 
+    aimingOffsetPos: []
+    aimingOffsetRot: []
+    magazins: []
   weaponAimingOffset: {fileID: 6342568059788630933}
   weaponPivot: {fileID: 6342568060265341420}
   weaponSway: {fileID: 6342568058827009539}
@@ -6458,21 +6589,7 @@ MonoBehaviour:
   weaponRecoil: {fileID: 4810364487588098430}
   cameraRecoil: {fileID: 6342568059192734942}
   animationTransform: {fileID: 6342568060265341420}
-  camoTexture: {fileID: 0}
-  sight: {fileID: 0}
-  cantedSight: {fileID: 0}
-  aimingOffsetIndex: 0
-  sightRations: 
-  aimingOffsetPos: []
-  aimingOffsetRot: []
-  attachements: []
-  weaponGraphics: []
   fireMode: 1
-  currentMag:
-    magProperties: {fileID: 0}
-    magazinSite: {fileID: 0}
-    magazin: {fileID: 0}
-    currentAmmoCount: 0
   clippingMask:
     serializedVersion: 2
     m_Bits: 2147483647
@@ -6483,7 +6600,6 @@ MonoBehaviour:
   leftHandThrowPos: {fileID: 4810364486239698542}
   aimRigLayer: {fileID: 6342568060340684013}
   isAiming: 0
-  weaponRef: {fileID: 0}
 --- !u!114 &2097496550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6612,52 +6728,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 0
   sound: 0
---- !u!114 &5725118641006253207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6342568059386516336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8435827d612384441bc0af7421be7ae4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponHolders: []
-  magazinSites:
-  - magazinSiteTransform: {fileID: 6342568060048642687}
-    magazinType: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
-  - magazinSiteTransform: {fileID: 6342568059614328237}
-    magazinType: {fileID: 11400000, guid: c5841414bebea874a9db1012e4343ca7, type: 2}
-  - magazinSiteTransform: {fileID: 6342568059377464516}
-    magazinType: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
-  currentWeapon: {fileID: 0}
-  selectedWeapon: 0
-  equippedWeapons:
-  - weapon: {fileID: 11400000, guid: fab5f5befd35b4b4d8760d460f3c9a5c, type: 2}
-    sight: {fileID: 11400000, guid: 05e39d75d09151641bf1efc86e533539, type: 2}
-    cantedSight: {fileID: 0}
-    camoTexture: {fileID: 2800000, guid: c4a62584015114846a2506d1b29a214b, type: 3}
-    attachements: []
-  - weapon: {fileID: 11400000, guid: 7580e1b45cccf6843a91595ebceb70ff, type: 2}
-    sight: {fileID: 11400000, guid: f2b644040352db547b8830e99f7a56fe, type: 2}
-    cantedSight: {fileID: 0}
-    camoTexture: {fileID: 2800000, guid: 256c15a9c0a438042963bf9ffbaf0d75, type: 3}
-    attachements: []
-  selectedGrenade: 0
-  equippedGrenades: []
-  magSelected: 0
-  magazins:
-  - magProperties: {fileID: 11400000, guid: c5841414bebea874a9db1012e4343ca7, type: 2}
-    magazinSite: {fileID: 0}
-    magazin: {fileID: 0}
-    currentAmmoCount: 30
-  - magProperties: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
-    magazinSite: {fileID: 0}
-    magazin: {fileID: 0}
-    currentAmmoCount: 30
-  team: 0
 --- !u!1 &6342568059391198578
 GameObject:
   m_ObjectHideFlags: 0
@@ -11129,6 +11199,8 @@ Transform:
   - {fileID: 6342568060233850691}
   - {fileID: 4810364487028356688}
   - {fileID: 4810364488149923385}
+  - {fileID: 203347898}
+  - {fileID: 1746351060}
   m_Father: {fileID: 6342568059894521564}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

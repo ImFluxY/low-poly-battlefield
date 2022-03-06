@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27f1a1ed97dc264ca327a7b2bd138db, type: 3}
   m_Name: PistolMag
   m_EditorClassIdentifier: Assembly-CSharp::weaponMag
+  weapon: {fileID: 11400000, guid: 253fe55e93b78934e97f23eca948bb76, type: 2}
+  type: 1
   magPrefab: {fileID: 4019215608309986318, guid: dd6fb1ff9c4af5b4680e504f41bf9146, type: 3}
   bulletPrefab: {fileID: 3523726293125064539, guid: f0b5a7efa7c7ab445a4751e2cdb4ee12, type: 3}
+  bulletDamage: 0
   bulletSpeed: 341.376
   bulletLifeTime: 10
   maxAmmoCount: 10

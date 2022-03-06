@@ -25,15 +25,14 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   private bool noAnimation;
 
   [Header("Weapon")]
-  public Weapon weapon;
+  public EquippedWeapon weapon;
   [SerializeField]
   private Transform weaponAimingOffset;
   [SerializeField]
   private Transform weaponPivot;
   [SerializeField]
   private Transform weaponSway;
-  [SerializeField]
-  private Transform weaponParent;
+  public Transform weaponParent;
   [SerializeField]
   private Transform weaponRecoil;
   [SerializeField]
@@ -42,23 +41,6 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   [Header("Procedural Animations")]
   [SerializeField]
   private Transform animationTransform;
-
-  [Header("Customization")]
-  public Texture camoTexture;
-  [Space]
-  public Sight sight;
-  public Sight cantedSight;
-  [SerializeField]
-  private int aimingOffsetIndex;
-  [SerializeField]
-  private List<SightRatio> sightRations;
-  [SerializeField]
-  private List<Vector3> aimingOffsetPos = new List<Vector3>();
-  [SerializeField]
-  private List<Vector3> aimingOffsetRot = new List<Vector3>();
-  [Space]
-  public Attachement[] attachements;
-  public List<GameObject> weaponGraphics;
 
   [Header("Fire Settings")]
   [SerializeField]
@@ -99,7 +81,6 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   private Quaternion refWeaponRot = Quaternion.identity;
 
   [HideInInspector]
-  public WeaponReferences weaponRef;
   private Animator playerAnimator;
   private InputManager inputManager;
   private BallisticManager ballisticManager;
@@ -134,136 +115,17 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   public void SetupWeapon()
   {
-    //New Weapon
-    weaponPivot.localPosition = weapon.weaponPivotPos;
-    GameObject newWeapon = Instantiate(weapon.weaponObject, weaponParent) as GameObject;
-    weaponGraphics.Add(newWeapon);
-    weaponRef = newWeapon.GetComponent<WeaponReferences>();
-
-    if (camoTexture)
-    {
-      for (int i = 0; i < weaponRef.meshCamos.Length; i++)
-      {
-        weaponRef.meshCamos[i].material.mainTexture = camoTexture;
-      }
-    }
-
-    //Setup Attachements
-    if (!sight)
-      sight = weapon.defaultSight;
-
-    if (PV.IsMine && sight.sightPrefab)
-      weaponGraphics.Add(Instantiate(sight.sightPrefab, weaponRef.sightPos));
-    else if (!PV.IsMine && sight.fakeSightPrefab)
-      weaponGraphics.Add(Instantiate(sight.fakeSightPrefab, weaponRef.sightPos));
-
-    aimingOffsetPos.Clear();
-    aimingOffsetRot.Clear();
-    sightRations.Clear();
-
-    foreach (SightOffsets primarySight in sight.primaryAimingOffset)
-    {
-      if (primarySight.weapon.weaponId == weapon.weaponProperties.weaponId)
-      {
-        if (primarySight.needRail && weaponRef.rail)
-          weaponRef.rail.SetActive(true);
-
-        aimingOffsetPos.Add(primarySight.position);
-        aimingOffsetRot.Add(primarySight.rotation);
-      }
-    }
-    sightRations.Add(sight.primarySightRatio);
-
-    if (sight.twoSights)
-    {
-      foreach (SightOffsets secondarySight in sight.secondaryAimingOffset)
-      {
-        if (secondarySight.weapon.weaponId == weapon.weaponProperties.weaponId)
-        {
-          aimingOffsetPos.Add(secondarySight.position);
-          aimingOffsetRot.Add(secondarySight.rotation);
-        }
-      }
-      sightRations.Add(sight.secondarySightRatio);
-    }
-
-    if (cantedSight)
-    {
-      if (weaponRef.cantedRail)
-        weaponRef.cantedRail.SetActive(true);
-
-      weaponGraphics.Add(Instantiate(cantedSight.sightPrefab, weaponRef.cantedSightPos));
-
-      foreach (SightOffsets cantedSight in sight.cantedAimingOffset)
-      {
-        if (cantedSight.weapon.weaponId == weapon.weaponProperties.weaponId)
-        {
-          aimingOffsetPos.Add(cantedSight.position);
-          aimingOffsetRot.Add(cantedSight.rotation);
-        }
-      }
-      sightRations.Add(sight.cantedSightRatio);
-    }
-    else
-    {
-      if (weaponRef.cantedRail)
-        weaponRef.cantedRail.SetActive(false);
-    }
-
-    if (attachements.Length > 0)
-    {
-      for (int i = 0; i < attachements.Length; i++)
-      {
-        if (attachements[i] == null)
-          return;
-
-        GameObject attachementPrefab = attachements[i].attachementPrefab;
-        Transform attachementParent = null;
-
-        switch (attachements[i].attachementType)
-        {
-          case AttachementType.Upperbarrel:
-            if (weaponRef.upperBarrelPos != null)
-              attachementParent = weaponRef.upperBarrelPos;
-            break;
-          case AttachementType.Underbarrel:
-            if (weaponRef.underBarrelPos != null)
-              attachementParent = weaponRef.underBarrelPos;
-            break;
-          case AttachementType.RightSide:
-            if (weaponRef.rightSideBarrelPos != null)
-              attachementParent = weaponRef.rightSideBarrelPos;
-            break;
-          case AttachementType.LeftSide:
-            if (weaponRef.leftSideBarrelPos != null)
-              attachementParent = weaponRef.leftSideBarrelPos;
-            break;
-          case AttachementType.Muzzle:
-            if (weaponRef.muzzlePos != null)
-              attachementParent = weaponRef.muzzlePos;
-            break;
-          case AttachementType.Stock:
-            if (weaponRef.stockPos != null)
-              attachementParent = weaponRef.stockPos;
-            break;
-        }
-
-        if (attachementPrefab != null && attachementParent != null)
-        {
-          weaponGraphics.Add(Instantiate(attachementPrefab, attachementParent));
-        }
-      }
-    }
+    //Weapon
+    weaponPivot.localPosition = weapon.properties.weaponPivotPos;
 
     //Procedural Animations
-
     proceduralStartPos = animationTransform.localPosition;
     proceduralStartRot = animationTransform.localRotation;
   }
 
   private void FixedUpdate()
   {
-    if (!weapon)
+    if (!weapon.properties)
       return;
 
     if (PV.IsMine && !Pause.paused)
@@ -277,7 +139,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   private void Update()
   {
-    if (!weapon)
+    if (!weapon.properties)
       return;
 
     if (PV.IsMine && !Pause.paused)
@@ -289,7 +151,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
         FireControl();
         AnimationControl();
 
-        if (fireTimer < weapon.fireRate)
+        if (fireTimer < weapon.properties.fireRate)
           fireTimer += Time.deltaTime;
       }
     }
@@ -307,7 +169,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
           Shoot();
         break;
       case FireMode.Auto:
-        if (fireTimer < weapon.fireRate) return;
+        if (fireTimer < weapon.properties.fireRate) return;
         if (Input.GetKey(inputManager.fireKey))
           Shoot();
         break;
@@ -323,10 +185,10 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   private IEnumerator BurstFire()
   {
-    for (int i = 0; i < weapon.bulletsPerBurst; i++)
+    for (int i = 0; i < weapon.properties.bulletsPerBurst; i++)
     {
       Shoot();
-      yield return new WaitForSeconds(weapon.fireRate);
+      yield return new WaitForSeconds(weapon.properties.fireRate);
     }
 
     bursting = false;
@@ -335,24 +197,24 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   private void Shoot()
   {
     /* Mag */
-    if (weaponRef.currentMag == null || weaponRef.currentMag.currentAmmoCount <= 0)
+    if (weapon.weaponRef.currentMag == null || weapon.weaponRef.currentMag.getCurrentAmmo() <= 0)
       return;
 
-    weaponRef.currentMag.currentAmmoCount--;
+    weapon.weaponRef.currentMag.setCurrentAmmo(weapon.weaponRef.currentMag.getCurrentAmmo() - 1);
 
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Shot, weapon.weaponProperties.weaponId);
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Shot, weapon.properties.weaponProperties.weaponId);
 
     PV.RPC("RPC_Shoot", RpcTarget.All);
 
     /* Realistic Ballistic */
 
-    GameObject bullet = Instantiate(weaponRef.currentMag.magProperties.bulletPrefab, weaponRef.muzzle.position, weaponRef.muzzle.rotation);
+    GameObject bullet = Instantiate(weapon.weaponRef.currentMag.properties.bulletPrefab, weapon.weaponRef.muzzle.position, weapon.weaponRef.muzzle.rotation);
     ParabolicBullet bulletScript = bullet.GetComponent<ParabolicBullet>();
     if (bulletScript)
     {
-      bulletScript.Initialize(ballisticManager, weaponRef.currentMag.magProperties.bulletDamage, weaponRef.muzzle, weaponRef.currentMag.magProperties.bulletSpeed, 9.81f, playerActor);
+      bulletScript.Initialize(ballisticManager, weapon.weaponRef.currentMag.properties.bulletDamage, weapon.weaponRef.muzzle, weapon.weaponRef.currentMag.properties.bulletSpeed, 9.81f, playerActor);
     }
-    Destroy(bullet, weaponRef.currentMag.magProperties.bulletLifeTime);
+    Destroy(bullet, weapon.weaponRef.currentMag.properties.bulletLifeTime);
 
     /* Fire Rate */
     fireTimer = 0.0f;
@@ -362,51 +224,54 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   private void RPC_Shoot()
   {
     /* Sound */
-    if(!PV.IsMine)
-        SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Shot, weapon.weaponProperties.weaponId, weaponRef.muzzle.position);
+    if (!PV.IsMine)
+      SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Shot, weapon.properties.weaponProperties.weaponId, weapon.weaponRef.muzzle.position);
 
     /* Animation */
-    weaponRef.animator.SetTrigger("Fire");
+    weapon.weaponRef.animator.SetTrigger("Fire");
 
     /* Recoil */
     if (!noRecoil)
     {
       if (isAiming)
       {
-        CurrentRecoil1 += new Vector3(weapon.recoilRotation.x / weapon.aimRecoilReducer, Random.Range(-weapon.recoilRotation.y, weapon.recoilRotation.y) / weapon.aimRecoilReducer, Random.Range(-weapon.recoilRotation.z, weapon.recoilRotation.z) / weapon.aimRecoilReducer);
-        CurrentRecoil2 += new Vector3(Random.Range(-weapon.recoilKickBack.x, weapon.recoilKickBack.x) / weapon.aimRecoilReducer, Random.Range(-weapon.recoilKickBack.y, weapon.recoilKickBack.y) / weapon.aimRecoilReducer, weapon.recoilKickBack.z / weapon.aimRecoilReducer);
+        CurrentRecoil1 += new Vector3(weapon.properties.recoilRotation.x / weapon.properties.aimRecoilReducer, Random.Range(-weapon.properties.recoilRotation.y, weapon.properties.recoilRotation.y) / weapon.properties.aimRecoilReducer, Random.Range(-weapon.properties.recoilRotation.z, weapon.properties.recoilRotation.z) / weapon.properties.aimRecoilReducer);
+        CurrentRecoil2 += new Vector3(Random.Range(-weapon.properties.recoilKickBack.x, weapon.properties.recoilKickBack.x) / weapon.properties.aimRecoilReducer, Random.Range(-weapon.properties.recoilKickBack.y, weapon.properties.recoilKickBack.y) / weapon.properties.aimRecoilReducer, weapon.properties.recoilKickBack.z / weapon.properties.aimRecoilReducer);
       }
       else
       {
-        CurrentRecoil1 += new Vector3(weapon.recoilRotation.x, Random.Range(-weapon.recoilRotation.y, weapon.recoilRotation.y), Random.Range(-weapon.recoilRotation.z, weapon.recoilRotation.z));
-        CurrentRecoil2 += new Vector3(Random.Range(-weapon.recoilKickBack.x, weapon.recoilKickBack.x), Random.Range(-weapon.recoilKickBack.y, weapon.recoilKickBack.y), weapon.recoilKickBack.z);
+        CurrentRecoil1 += new Vector3(weapon.properties.recoilRotation.x, Random.Range(-weapon.properties.recoilRotation.y, weapon.properties.recoilRotation.y), Random.Range(-weapon.properties.recoilRotation.z, weapon.properties.recoilRotation.z));
+        CurrentRecoil2 += new Vector3(Random.Range(-weapon.properties.recoilKickBack.x, weapon.properties.recoilKickBack.x), Random.Range(-weapon.properties.recoilKickBack.y, weapon.properties.recoilKickBack.y), weapon.properties.recoilKickBack.z);
       }
     }
 
     /* FX */
 
-    if (Random.Range(0f, 1f) <= weapon.muzzleFlashSpawnChance)
+    if (Random.Range(0f, 1f) <= weapon.properties.muzzleFlashSpawnChance)
     {
-      weaponRef.muzzleFlash.Play();
+      weapon.weaponRef.muzzleFlash.Play();
     }
 
-    GameObject caseEjected = Instantiate(weapon.caseEjected, weaponRef.caseEjector.position, weaponRef.caseEjector.rotation);
+    GameObject caseEjected = Instantiate(weapon.properties.caseEjected, weapon.weaponRef.caseEjector.position, weapon.weaponRef.caseEjector.rotation);
     Rigidbody caseEjectedRb = caseEjected.GetComponent<Rigidbody>();
-    caseEjectedRb.AddForce(caseEjected.transform.right * Random.Range(weapon.caseMinEjectingForce, weapon.caseMaxEjectingForce), ForceMode.Impulse);
+    caseEjectedRb.AddForce(caseEjected.transform.right * Random.Range(weapon.properties.caseMinEjectingForce, weapon.properties.caseMaxEjectingForce), ForceMode.Impulse);
     Vector3 randomRotation = new Vector3(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
     caseEjectedRb.rotation = Quaternion.Euler(randomRotation);
-    Destroy(caseEjected, weapon.caseEjectedDrestroyTime);
+    Destroy(caseEjected, weapon.properties.caseEjectedDrestroyTime);
   }
 
   private void RecoilLogic()
   {
-    if (!Input.GetMouseButton(0) || weaponRef.currentMag.currentAmmoCount <= 0)
+    if (!weapon.weaponRef.currentMag)
+      return;
+
+    if (!Input.GetMouseButton(0) || weapon.weaponRef.currentMag.getCurrentAmmo() <= 0)
     {
-      CurrentRecoil1 = Vector3.Lerp(CurrentRecoil1, Vector3.zero, weapon.recoilRotComeBackTime * Time.fixedDeltaTime);
+      CurrentRecoil1 = Vector3.Lerp(CurrentRecoil1, Vector3.zero, weapon.properties.recoilRotComeBackTime * Time.fixedDeltaTime);
     }
-    CurrentRecoil2 = Vector3.Lerp(CurrentRecoil2, Vector3.zero, weapon.recoilPosComeBackTime * Time.fixedDeltaTime);
-    weaponRecoil.localPosition = Vector3.Slerp(weaponRecoil.localPosition, CurrentRecoil2, weapon.positionDampTime * Time.fixedDeltaTime);
-    weaponRotationOutput = Vector3.Slerp(weaponRotationOutput, CurrentRecoil1, weapon.rotationDampTime * Time.fixedDeltaTime);
+    CurrentRecoil2 = Vector3.Lerp(CurrentRecoil2, Vector3.zero, weapon.properties.recoilPosComeBackTime * Time.fixedDeltaTime);
+    weaponRecoil.localPosition = Vector3.Slerp(weaponRecoil.localPosition, CurrentRecoil2, weapon.properties.positionDampTime * Time.fixedDeltaTime);
+    weaponRotationOutput = Vector3.Slerp(weaponRotationOutput, CurrentRecoil1, weapon.properties.rotationDampTime * Time.fixedDeltaTime);
     weaponRecoil.localRotation = Quaternion.Euler(weaponRotationOutput);
   }
 
@@ -417,39 +282,39 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
     else
       isAiming = false;
 
-    if (isAiming && aimingOffsetPos.Count > 0)
+    if (isAiming && weapon.aimingOffsetPos.Count > 0)
     {
       float scroll = Input.GetAxis("Mouse ScrollWheel");
-      int previousIndex = aimingOffsetIndex;
+      int previousIndex = weapon.aimingOffsetIndex;
 
       if (scroll > 0)
       {
-        if (aimingOffsetIndex < aimingOffsetPos.Count - 1)
+        if (weapon.aimingOffsetIndex < weapon.aimingOffsetPos.Count - 1)
         {
-          aimingOffsetIndex++;
+          weapon.aimingOffsetIndex++;
         }
         else
         {
-          aimingOffsetIndex = 0;
+          weapon.aimingOffsetIndex = 0;
         }
       }
 
       if (scroll < 0)
       {
-        if (aimingOffsetIndex > 0)
+        if (weapon.aimingOffsetIndex > 0)
         {
-          aimingOffsetIndex--;
+          weapon.aimingOffsetIndex--;
         }
         else
         {
-          aimingOffsetIndex = aimingOffsetPos.Count - 1;
+          weapon.aimingOffsetIndex = weapon.aimingOffsetPos.Count - 1;
         }
       }
 
-      if (previousIndex != aimingOffsetIndex)
+      if (previousIndex != weapon.aimingOffsetIndex)
       {
-        weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, aimingOffsetPos[aimingOffsetIndex], Time.deltaTime / sight.switchSpeed);
-        weaponAimingOffset.localRotation = Quaternion.Lerp(weaponAimingOffset.localRotation, Quaternion.Euler(aimingOffsetRot[aimingOffsetIndex]), Time.deltaTime / sight.switchSpeed);
+        weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, weapon.aimingOffsetPos[weapon.aimingOffsetIndex], Time.deltaTime / weapon.sight.switchSpeed);
+        weaponAimingOffset.localRotation = Quaternion.Lerp(weaponAimingOffset.localRotation, Quaternion.Euler(weapon.aimingOffsetRot[weapon.aimingOffsetIndex]), Time.deltaTime / weapon.sight.switchSpeed);
 
       }
     }
@@ -457,29 +322,31 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   private void AimingLogic()
   {
+    EquippedWeapon weapon = playerEquipement.equippedWeapons[playerEquipement.selectedWeapon];
+
     if (isAiming)
     {
-      inputManager.SetSightDivider(sightRations[aimingOffsetIndex]);
-      weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, aimingOffsetPos[aimingOffsetIndex], Time.deltaTime / weapon.aimingDuration);
-      weaponAimingOffset.localRotation = Quaternion.Lerp(weaponAimingOffset.localRotation, Quaternion.Euler(aimingOffsetRot[aimingOffsetIndex]), Time.deltaTime / weapon.aimingDuration);
-      aimRigLayer.weight = Mathf.Lerp(aimRigLayer.weight, 1, Time.deltaTime / weapon.aimingDuration);
+      inputManager.SetSightDivider(weapon.sightRatios[weapon.aimingOffsetIndex]);
+      weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, weapon.aimingOffsetPos[weapon.aimingOffsetIndex], Time.deltaTime / weapon.properties.aimingDuration);
+      weaponAimingOffset.localRotation = Quaternion.Lerp(weaponAimingOffset.localRotation, Quaternion.Euler(weapon.aimingOffsetRot[weapon.aimingOffsetIndex]), Time.deltaTime / weapon.properties.aimingDuration);
+      aimRigLayer.weight = Mathf.Lerp(aimRigLayer.weight, 1, Time.deltaTime / weapon.properties.aimingDuration);
     }
     else
     {
       inputManager.SetSightDivider(SightRatio.x1);
-      weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, Vector3.zero, Time.deltaTime / weapon.aimingDuration);
-      weaponAimingOffset.localRotation = Quaternion.Lerp(weaponAimingOffset.localRotation, Quaternion.identity, Time.deltaTime / weapon.aimingDuration);
-      aimRigLayer.weight = Mathf.Lerp(aimRigLayer.weight, 0, Time.deltaTime / weapon.aimingDuration);
+      weaponAimingOffset.localPosition = Vector3.Lerp(weaponAimingOffset.localPosition, Vector3.zero, Time.deltaTime / weapon.properties.aimingDuration);
+      weaponAimingOffset.localRotation = Quaternion.Lerp(weaponAimingOffset.localRotation, Quaternion.identity, Time.deltaTime / weapon.properties.aimingDuration);
+      aimRigLayer.weight = Mathf.Lerp(aimRigLayer.weight, 0, Time.deltaTime / weapon.properties.aimingDuration);
     }
   }
 
   private void MoveSway()
   {
-    float moveX = inputManager.FreeLook ? 0 : Mathf.Clamp(inputManager.XLookAxis * weapon.swayAmount, -weapon.maxSwayAmount, weapon.maxSwayAmount);
-    float moveY = inputManager.FreeLook ? 0 : Mathf.Clamp(inputManager.YLookAxis * weapon.swayAmount, -weapon.maxSwayAmount, weapon.maxSwayAmount);
+    float moveX = inputManager.FreeLook ? 0 : Mathf.Clamp(inputManager.XLookAxis * weapon.properties.swayAmount, -weapon.properties.maxSwayAmount, weapon.properties.maxSwayAmount);
+    float moveY = inputManager.FreeLook ? 0 : Mathf.Clamp(inputManager.YLookAxis * weapon.properties.swayAmount, -weapon.properties.maxSwayAmount, weapon.properties.maxSwayAmount);
 
     Vector3 finalPosition = new Vector3(moveX, moveY, 0);
-    weaponSway.localPosition = Vector3.Lerp(weaponSway.localPosition, finalPosition + refWeaponPos, Time.deltaTime * weapon.swaySmoothAmount);
+    weaponSway.localPosition = Vector3.Lerp(weaponSway.localPosition, finalPosition + refWeaponPos, Time.deltaTime * weapon.properties.swaySmoothAmount);
   }
 
   Vector2 tilt;
@@ -488,24 +355,24 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
   {
     if (isAiming)
     {
-      tilt.x = inputManager.YLookAxis * weapon.swayRotationAmount;
-      tilt.y = inputManager.XLookAxis * weapon.swayRotationAmount;
+      tilt.x = inputManager.YLookAxis * weapon.properties.swayRotationAmount;
+      tilt.y = inputManager.XLookAxis * weapon.properties.swayRotationAmount;
     }
     else
     {
-      tilt.x += inputManager.YLookAxis * weapon.swayRotationAmount;
-      tilt.y += inputManager.XLookAxis * weapon.swayRotationAmount;
+      tilt.x += inputManager.YLookAxis * weapon.properties.swayRotationAmount;
+      tilt.y += inputManager.XLookAxis * weapon.properties.swayRotationAmount;
     }
 
-    tilt.x = inputManager.FreeLook ? 0 : Mathf.Clamp(tilt.x, -weapon.maxSwayRoationAmount, weapon.maxSwayRoationAmount);
-    tilt.y = inputManager.FreeLook ? 0 : Mathf.Clamp(tilt.y, -weapon.maxSwayRoationAmount, weapon.maxSwayRoationAmount);
+    tilt.x = inputManager.FreeLook ? 0 : Mathf.Clamp(tilt.x, -weapon.properties.maxSwayRoationAmount, weapon.properties.maxSwayRoationAmount);
+    tilt.y = inputManager.FreeLook ? 0 : Mathf.Clamp(tilt.y, -weapon.properties.maxSwayRoationAmount, weapon.properties.maxSwayRoationAmount);
 
     Quaternion finalRotation = Quaternion.Euler(new Vector3(
-        weapon.swayRotationX ? -tilt.x : 0f,
-        weapon.swayRotationY ? tilt.y : 0f,
-        weapon.swayRotationZ ? tilt.y : 0f));
+        weapon.properties.swayRotationX ? -tilt.x : 0f,
+        weapon.properties.swayRotationY ? tilt.y : 0f,
+        weapon.properties.swayRotationZ ? tilt.y : 0f));
 
-    weaponSway.localRotation = Quaternion.Slerp(weaponSway.localRotation, finalRotation * refWeaponRot, Time.deltaTime * weapon.swaySmoothAmount);
+    weaponSway.localRotation = Quaternion.Slerp(weaponSway.localRotation, finalRotation * refWeaponRot, Time.deltaTime * weapon.properties.swaySmoothAmount);
   }
 
   private void AnimationControl()
@@ -513,7 +380,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
     if (noAnimation)
       return;
 
-    if (Input.GetKeyDown(KeyCode.R) && playerEquipement.magazins.Count > 0)
+    if (Input.GetKeyDown(KeyCode.R) && weapon.magazins.Count > 0)
     {
       playerAnimator.SetTrigger("Reload");
       rigAnimator.SetTrigger("Reload");
@@ -538,13 +405,13 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
     switch (playerLocomotion.movementState)
     {
       case MovementState.Idle:
-        ProceduralAnimation(weapon.idleAnimation);
+        ProceduralAnimation(weapon.properties.idleAnimation);
         break;
       case MovementState.Walk:
-        ProceduralAnimation(weapon.walkAnimation);
+        ProceduralAnimation(weapon.properties.walkAnimation);
         break;
       case MovementState.Run:
-        ProceduralAnimation(weapon.runAnimation);
+        ProceduralAnimation(weapon.properties.runAnimation);
         break;
     }
   }
@@ -578,40 +445,43 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   private void DetachMagazine()
   {
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.weaponProperties.weaponId, weaponRef.currentMag.magazin.transform.position);
-    weaponRef.currentMag.magazin.transform.SetParent(leftHandMagPos);
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.properties.weaponProperties.weaponId, weapon.weaponRef.currentMag.transform.position);
+    weapon.weaponRef.currentMag.transform.SetParent(leftHandMagPos);
   }
 
   private void DropMagazine()
   {
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.weaponProperties.weaponId, weaponRef.currentMag.magazin.transform.position);
-    weaponRef.currentMag.magazin.GetComponent<Rigidbody>().isKinematic = false;
-    weaponRef.currentMag.magazin.transform.SetParent(null);
+    if(!weapon.weaponRef.currentMag)
+      return;
+
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_Out, weapon.properties.weaponProperties.weaponId, weapon.weaponRef.currentMag.transform.position);
+    weapon.weaponRef.currentMag.setRbKinematic(false);
+    weapon.weaponRef.currentMag.transform.SetParent(null);
   }
 
   private void RefillMagazine()
   {
-    weaponRef.currentMag = playerEquipement.magazins[playerEquipement.magSelected];
-    playerEquipement.magazins.Remove(weaponRef.currentMag);
+    weapon.weaponRef.currentMag = weapon.magazins[0].magazinObj;
+    weapon.magazins.Remove(weapon.magazins[0]);
 
-    if (weaponRef.currentMag.magazin != null)
+    if (weapon.weaponRef.currentMag != null)
     {
-      weaponRef.currentMag.magazin.transform.SetParent(leftHandMagPos);
-      weaponRef.currentMag.magazin.transform.localPosition = Vector3.zero;
-      weaponRef.currentMag.magazin.transform.localRotation = Quaternion.Euler(Vector3.zero);
+      weapon.weaponRef.currentMag.transform.SetParent(leftHandMagPos);
+      weapon.weaponRef.currentMag.transform.localPosition = Vector3.zero;
+      weapon.weaponRef.currentMag.transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
     else
     {
-      weaponRef.currentMag.magazin = Instantiate(weapon.magazinType.magPrefab, leftHandMagPos);
+      weapon.weaponRef.currentMag = Instantiate(weapon.magazins[0].magazin.magPrefab, leftHandMagPos).GetComponent<WeaponMagazin>();
     }
   }
 
   private void AttachMagazine()
   {
-    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_In, weapon.weaponProperties.weaponId, weaponRef.currentMag.magazin.transform.position);
-    weaponRef.currentMag.magazin.transform.SetParent(weaponRef.magPos);
-    weaponRef.currentMag.magazin.transform.localPosition = Vector3.zero;
-    weaponRef.currentMag.magazin.transform.localRotation = Quaternion.Euler(Vector3.zero);
+    SoundManager.PlayWeaponSound(SoundManager.WeaponSound.Mag_In, weapon.properties.weaponProperties.weaponId, weapon.weaponRef.currentMag.transform.position);
+    weapon.weaponRef.currentMag.transform.SetParent(weapon.weaponRef.magPos);
+    weapon.weaponRef.currentMag.transform.localPosition = Vector3.zero;
+    weapon.weaponRef.currentMag.transform.localRotation = Quaternion.Euler(Vector3.zero);
   }
 
   private void TakeGrenade()
@@ -670,16 +540,7 @@ public class SimpleWeapon : MonoBehaviourPunCallbacks, IPunObservable
 
   public void detachWeapon()
   {
-    weaponGraphics[0].GetComponent<Animator>().enabled = false;
-    weaponGraphics[0].transform.SetParent(GetComponent<Animator>().GetBoneTransform(HumanBodyBones.RightHand));
+    weapon.weaponGraphics[0].GetComponent<Animator>().enabled = false;
+    weapon.weaponGraphics[0].transform.SetParent(GetComponent<Animator>().GetBoneTransform(HumanBodyBones.RightHand));
   }
-}
-
-[System.Serializable]
-public class weaponMag
-{
-  public Magazin magProperties;
-  public Transform magazinSite;
-  public GameObject magazin;
-  public int currentAmmoCount;
 }

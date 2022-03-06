@@ -8,7 +8,7 @@ public class Weapon : ScriptableObject
     public GameObject weaponObject;
     public Vector3 weaponPivotPos;
     public Sight defaultSight;
-    public Magazin magazinType;
+    public Magazin defaultMagazin;
     public float caseEjectedDrestroyTime = 5f;
     public float fireRate = 0.13f;
     public float aimingDuration = 0.15f;

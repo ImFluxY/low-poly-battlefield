@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour, IDamageable
       return;
 
     currentHealth -= damage;
-    //RefreshHealthBar();
 
     if (currentHealth <= 0)
     {
@@ -79,16 +78,16 @@ public class PlayerController : MonoBehaviour, IDamageable
   }
   */
 
+  public void Die()
+  {
+    PV.RPC("RPC_Die", RpcTarget.All);
+  }
+
   [PunRPC]
   void RPC_Die()
   {
     GetComponent<SimpleWeapon>().detachWeapon();
-    GetComponent<PlayerCamera>().deleteCamera();
-
-    for (int i = 0; i < disableOnDeath.Length; i++)
-    {
-      disableOnDeath[i].enabled = false;
-    }
+    GetComponent<PlayerCamera>().DisableCamera();
 
     ragdoll.ActivateRagdoll();
   }

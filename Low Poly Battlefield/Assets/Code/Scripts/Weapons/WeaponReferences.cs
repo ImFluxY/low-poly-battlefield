@@ -23,5 +23,5 @@ public class WeaponReferences : MonoBehaviour
     public Transform stockPos;
     public MeshRenderer[] meshCamos;
     [Header("Magazin")]
-    public weaponMag currentMag;
+    public WeaponMagazin currentMag;
 }

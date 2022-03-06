@@ -259,7 +259,6 @@ GameObject:
   - component: {fileID: 8168605836327372686}
   - component: {fileID: 8159119603818705540}
   - component: {fileID: 8149475743078507302}
-  - component: {fileID: 8191992478758347264}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -331,20 +330,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8191992478758347264
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8163503072660399858}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43452813602244232, guid: 4810ea06ddb759f4fb5bbde5928ed88b, type: 2}
 --- !u!1 &8163506440164428798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2545,6 +2530,7 @@ GameObject:
   - component: {fileID: 8163942967809625289}
   - component: {fileID: 8163942967809625290}
   - component: {fileID: 8163942967809625291}
+  - component: {fileID: 2072375968}
   m_Layer: 0
   m_Name: Military_Car_1
   m_TagString: Untagged
@@ -2667,6 +2653,28 @@ MonoBehaviour:
   isControlled: 0
   engine: {fileID: 8163942967775824195}
   KPH: 0
+--- !u!114 &2072375968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8163942967809625284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8163942967967512116
 GameObject:
   m_ObjectHideFlags: 0

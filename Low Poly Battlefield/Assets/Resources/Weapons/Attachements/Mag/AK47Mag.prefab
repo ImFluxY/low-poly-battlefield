@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -2363688709062025463}
   - component: {fileID: 7344924316193710663}
   - component: {fileID: -5350234727922039911}
+  - component: {fileID: -1616019328841167228}
   m_Layer: 0
   m_Name: AK47Mag
   m_TagString: Untagged
@@ -129,5 +130,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needKinematicToFalse: 1
   playSoundAtPosition: 1
+  volume: 0.8
   soundToPlay: 2
   minimumCollisionMagnitude: 2
+--- !u!114 &-1616019328841167228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250134597530838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 688a5e7170002674faf9e924816eb408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magazin: {fileID: 11400000, guid: c5841414bebea874a9db1012e4343ca7, type: 2}

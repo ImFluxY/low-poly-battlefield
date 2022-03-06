@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponObject: {fileID: 5830596659708226832, guid: cff8c6a8b05fdce4ba3076a1fc1c7262, type: 3}
   weaponPivotPos: {x: 0, y: -0.006, z: 0.339}
   defaultSight: {fileID: 11400000, guid: 3a58a5c6b17ad174982541eac1399045, type: 2}
-  magazinType: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
+  defaultMagazin: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
   caseEjectedDrestroyTime: 5
   fireRate: 0.13
   aimingDuration: 0.08

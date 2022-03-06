@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ae49bdbf690db46b5ac20e81b6ef61, type: 3}
   m_Name: Pistol Test
   m_EditorClassIdentifier: 
-  weaponType: 1
+  weaponProperties: {fileID: 11400000, guid: 253fe55e93b78934e97f23eca948bb76, type: 2}
   weaponObject: {fileID: 5179692541576275252, guid: 285ad5b41c08bfb4585aef3018a19466, type: 3}
   weaponPivotPos: {x: 0, y: 0.06, z: 0.429}
   defaultSight: {fileID: 11400000, guid: 4786a203b212ab84b998782bd084b288, type: 2}
-  magazinType: {fileID: 11400000, guid: d26c1a153d4d96d40b9d311a815dc416, type: 2}
+  defaultMagazin: {fileID: 0}
   caseEjectedDrestroyTime: 5
   fireRate: 0.13
   aimingDuration: 0.08
   muzzleFlashSpawnChance: 0.4
-  muzzleSmoke: {fileID: 912111974070619976, guid: 636faec1ac2474e439b04551fa17f9f6, type: 3}
+  muzzleSmoke: {fileID: 0}
   caseEjected: {fileID: 5654574932307380879, guid: 8d3c96bdc3e8b734c8d974254cfc1783, type: 3}
   caseMaxEjectingForce: 3
   caseMinEjectingForce: 5
