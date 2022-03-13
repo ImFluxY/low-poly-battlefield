@@ -186,6 +186,36 @@ Transform:
   m_Father: {fileID: 6342568060286301252}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 9.083, y: 91.17, z: -21.449}
+--- !u!1 &278372638962303993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4656299942118910337}
+  m_Layer: 31
+  m_Name: Mags
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4656299942118910337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278372638962303993}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6342568059894521564}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &836392308487647633
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4810364487028356688
 Transform:
   m_ObjectHideFlags: 0
@@ -898,7 +928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4810364488149923385
 Transform:
   m_ObjectHideFlags: 0
@@ -1146,7 +1176,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6344316873662649171
 Transform:
   m_ObjectHideFlags: 0
@@ -1229,7 +1259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6344316874009393966
 Transform:
   m_ObjectHideFlags: 0
@@ -1312,7 +1342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6344316874345504086
 Transform:
   m_ObjectHideFlags: 0
@@ -6506,16 +6536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8435827d612384441bc0af7421be7ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magazinSites:
-  - magazinSiteTransform: {fileID: 6342568060048642687}
-    magazinType: 0
-    mag: {fileID: 0}
-  - magazinSiteTransform: {fileID: 6342568059614328237}
-    magazinType: 0
-    mag: {fileID: 0}
-  - magazinSiteTransform: {fileID: 6342568059377464516}
-    magazinType: 0
-    mag: {fileID: 0}
+  magsSite: {fileID: 4656299942118910337}
   currentWeapon: {fileID: 0}
   selectedWeapon: 0
   equippedWeapons:
@@ -6534,20 +6555,9 @@ MonoBehaviour:
     magazins:
     - magazin: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
       magazinObj: {fileID: 0}
-  - properties: {fileID: 11400000, guid: 617cbb2f0e895724f8b153682c08ceee, type: 2}
-    weaponGraphics: []
-    weaponRef: {fileID: 0}
-    sight: {fileID: 0}
-    cantedSight: {fileID: 0}
-    camoTexture: {fileID: 0}
-    attachements:
-    - {fileID: 11400000, guid: 4dbf592d3b8954541becdd5b39eb8f97, type: 2}
-    aimingOffsetIndex: 0
-    sightRatios: 
-    aimingOffsetPos: []
-    aimingOffsetRot: []
-    magazins:
-    - magazin: {fileID: 11400000, guid: d26c1a153d4d96d40b9d311a815dc416, type: 2}
+    - magazin: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
+      magazinObj: {fileID: 0}
+    - magazin: {fileID: 11400000, guid: e02537119f3a88245afb568928e3f24a, type: 2}
       magazinObj: {fileID: 0}
   selectedGrenade: 0
   equippedGrenades:
@@ -9090,6 +9100,7 @@ Transform:
   - {fileID: 6342568059953124416}
   - {fileID: 6342568059787122927}
   - {fileID: 6342568058684544439}
+  - {fileID: 4656299942118910337}
   m_Father: {fileID: 6342568060598971520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

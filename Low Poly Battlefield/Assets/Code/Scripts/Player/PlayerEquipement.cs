@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerEquipement : MonoBehaviour
 {
-  public List<MagazinSite> magazinSites;
+  public Transform magsSite;
+  //public List<MagazinSite> magazinSites;
   [Space]
   public SimpleWeapon currentWeapon;
   public int selectedWeapon = 0;
@@ -220,6 +221,7 @@ public class PlayerEquipement : MonoBehaviour
 
   private void SetupMags()
   {
+    /*
     foreach (EquippedWeapon weapon in equippedWeapons)
     {
       for (int i = 0; i < weapon.magazins.Count; i++)
@@ -239,6 +241,16 @@ public class PlayerEquipement : MonoBehaviour
             break;
           }
         }
+      }
+    }
+    */
+    foreach (EquippedWeapon weapon in equippedWeapons)
+    {
+      for (int i = 0; i < weapon.magazins.Count; i++)
+      {
+        weapon.magazins[i].magazinObj = Instantiate(weapon.magazins[i].magazin.magPrefab, magsSite).GetComponent<WeaponMagazin>();
+        weapon.magazins[i].magazinObj.setCurrentAmmo(weapon.magazins[i].magazin.maxAmmoCount);
+        weapon.magazins[i].magazinObj.properties = weapon.magazins[i].magazin;
       }
     }
   }
